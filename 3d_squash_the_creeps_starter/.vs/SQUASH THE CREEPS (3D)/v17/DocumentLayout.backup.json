@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\BEKEZA1\\Downloads\\3d_squash_the_creeps_starter\\3d_squash_the_creeps_starter\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{62C0AA9C-2F37-48E8-B3C3-2C0E0A1309FF}|Squash the Creeps (3D).csproj|c:\\users\\bekeza1\\downloads\\3d_squash_the_creeps_starter\\3d_squash_the_creeps_starter\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62C0AA9C-2F37-48E8-B3C3-2C0E0A1309FF}|Squash the Creeps (3D).csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\BEKEZA1\\Downloads\\3d_squash_the_creeps_starter\\3d_squash_the_creeps_starter\\Player.cs",
+              "RelativeDocumentMoniker": "Player.cs",
+              "ToolTip": "C:\\Users\\BEKEZA1\\Downloads\\3d_squash_the_creeps_starter\\3d_squash_the_creeps_starter\\Player.cs",
+              "RelativeToolTip": "Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T00:00:30.052Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
