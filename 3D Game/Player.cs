@@ -39,22 +39,22 @@ public partial class Player : CharacterBody3D
 			direction.Z += 1.0f;
 		}
 
+		var animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
 		if (direction != Vector3.Zero)
 		{
 			direction = direction.Normalized();
 			GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
-			if (direction != Vector3.Zero)
-			{
-				GetNode<AnimationPlayer>("AnimationPlayer").SpeedScale = 4;
-			}
-			else
-			{
-				GetNode<AnimationPlayer>("AnimationPlayer").SpeedScale = 1;
-			}
+			animPlayer.SpeedScale = 2.0f;
+		}
+		else
+		{
+			animPlayer.SpeedScale = 1.0f; 
 		}
 
 		_targetVelocity.X = direction.X * Speed;
 		_targetVelocity.Z = direction.Z * Speed;
+		
 		if (!IsOnFloor())
 		{
 			_targetVelocity.Y -= FallAcceleration * (float)delta;
@@ -110,6 +110,7 @@ public partial class Player : CharacterBody3D
 	public override void _Ready()
 	{
 		Connect("Hit", new Callable(this, nameof(_on_player_hit)));
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("float"); 
 	}
 
 }

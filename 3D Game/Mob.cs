@@ -30,6 +30,8 @@ public partial class Mob : CharacterBody3D
 		Velocity = Vector3.Forward * randomSpeed;
 		
 		Velocity = Velocity.Rotated(Vector3.Up, Rotation.Y);
+		
+		GetNode<AnimationPlayer>("AnimationPlayer").SpeedScale = randomSpeed / MinSpeed;
 	}
 	
 	private void _on_visible_on_screen_notifier_3d_screen_exited()
@@ -41,6 +43,11 @@ public partial class Mob : CharacterBody3D
 	{
 		EmitSignal("Squashed");
 		QueueFree();
+	}
+	
+	public override void _Ready()
+	{
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("float"); 
 	}
 	
 }
