@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x8xspc5qq4ao"
-path="res://.godot/imported/Mockup2x.png-73b9429bd3b15322d2adf4a1b9bca1cf.ctex"
+uid="uid://dmndvtpv8rqew"
+path="res://.godot/imported/10.png-e4b3135df7a6e9b3c9d9fce832bcba5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tileset/Mockup2x.png"
-dest_files=["res://.godot/imported/Mockup2x.png-73b9429bd3b15322d2adf4a1b9bca1cf.ctex"]
+source_file="res://Art/Trap and Weapon/10.png"
+dest_files=["res://.godot/imported/10.png-e4b3135df7a6e9b3c9d9fce832bcba5f.ctex"]
 
 [params]
 

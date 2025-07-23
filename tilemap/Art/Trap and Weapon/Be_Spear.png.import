@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgunhbue8a3t4"
-path="res://.godot/imported/Tileset.png-9796f17c97b027c261036db46962bbd9.ctex"
+uid="uid://v0fxy3fc0ty3"
+path="res://.godot/imported/Be_Spear.png-0b09a81c898e0052b084e11a5a82d812.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tileset/Tileset.png"
-dest_files=["res://.godot/imported/Tileset.png-9796f17c97b027c261036db46962bbd9.ctex"]
+source_file="res://Art/Trap and Weapon/Be_Spear.png"
+dest_files=["res://.godot/imported/Be_Spear.png-0b09a81c898e0052b084e11a5a82d812.ctex"]
 
 [params]
 

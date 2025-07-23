@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bci44u50ngyqe"
-path="res://.godot/imported/ExampleTiles.png-34421ca8cdb6ad498c0ff518919c7116.ctex"
+uid="uid://cc38fdo3i6fie"
+path="res://.godot/imported/32.png-aa6bc6dc1ceba2786490ba8d72524e53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tileset/ExampleTiles.png"
-dest_files=["res://.godot/imported/ExampleTiles.png-34421ca8cdb6ad498c0ff518919c7116.ctex"]
+source_file="res://Art/Trap and Weapon/32.png"
+dest_files=["res://.godot/imported/32.png-aa6bc6dc1ceba2786490ba8d72524e53.ctex"]
 
 [params]
 
