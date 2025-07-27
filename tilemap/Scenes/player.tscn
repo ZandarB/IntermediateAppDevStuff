@@ -69,6 +69,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.75, 0.75)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
