@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbiu5w4s8c8b8"]
+[gd_scene load_steps=12 format=3 uid="uid://dbiu5w4s8c8b8"]
 
+[ext_resource type="Script" uid="uid://cmg3wx4m50djh" path="res://Scenes/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://jdtatw6dy08f" path="res://Art/Player/Sprites/with_outline/IDLE.png" id="1_v0iea"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v0iea"]
@@ -70,6 +71,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.75, 0.75)
+script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
