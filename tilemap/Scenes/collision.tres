@@ -4342,9 +4342,11 @@ texture = ExtResource("5_83wm6")
 42:87/0 = 0
 43:86/0 = 0
 44:86/0 = 0
+0:96/0 = 0
 
 [resource]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 2
 sources/1 = SubResource("TileSetAtlasSource_chwpn")
 sources/4 = SubResource("TileSetAtlasSource_fgtdk")
 sources/2 = SubResource("TileSetAtlasSource_xrdnt")

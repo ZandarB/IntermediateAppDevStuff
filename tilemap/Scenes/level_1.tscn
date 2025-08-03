@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://ic1o33gr07s0"]
+[gd_scene load_steps=13 format=4 uid="uid://ic1o33gr07s0"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://Scenes/collision.tres" id="1_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vk57k"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bgfflk3e3sqy7" path="res://Art/Tileset/DungeonTileSet.png" id="2_6444e"]
 [ext_resource type="Texture2D" uid="uid://dnkip47cg5dse" path="res://Art/Tileset/OutdoorTileset2.png" id="3_evi0p"]
 [ext_resource type="PackedScene" uid="uid://dbiu5w4s8c8b8" path="res://Scenes/player.tscn" id="3_xfk5q"]
+[ext_resource type="PackedScene" uid="uid://dc5tv8xgy64xx" path="res://slime.tscn" id="7_lsmp6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_evi0p"]
 texture = ExtResource("2_6444e")
@@ -276,5 +277,8 @@ tile_set = SubResource("TileSet_6r07y")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level1Finish"]
 position = Vector2(1128, 63)
 shape = SubResource("RectangleShape2D_evi0p")
+
+[node name="Slime" parent="." instance=ExtResource("7_lsmp6")]
+position = Vector2(629, 58)
 
 [connection signal="body_entered" from="Level1Finish" to="Player" method="_on_level_1_finish_body_entered"]
