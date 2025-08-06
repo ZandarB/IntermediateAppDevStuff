@@ -3,6 +3,7 @@ extends CharacterBody2D
 var direction_x = 0.0
 @export var speed = 150
 
+
 func _process(_delta):
 	get_input()
 	apply_gravity()
@@ -29,12 +30,16 @@ func update_animation():
 		$AnimatedSprite2D.play("default")
 
 	$AnimatedSprite2D.flip_h = direction_x < 0
-
-func _on_level_1_finish_body_entered(body: Node2D) -> void:
+	
+func _on_level_1_finish_body_entered(_body: Node2D) -> void:
 	call_deferred("_change_scene", "res://Scenes/level_2.tscn")
 
-func _on_level_2_finish_body_entered(body: Node2D) -> void:
+func _on_level_2_finish_body_entered(_body: Node2D) -> void:
 	call_deferred("_change_scene", "res://Scenes/level_3.tscn")
 
 func _change_scene(path: String) -> void:
 	get_tree().change_scene_to_file(path)
+
+
+func _on_collision_reset_timer_timeout() -> void:
+	set_collision_mask_value(4, true)

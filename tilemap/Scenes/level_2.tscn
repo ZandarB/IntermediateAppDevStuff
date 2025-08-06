@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=4 uid="uid://dd1e6j4w8kjal"]
 
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_12fag"]
-[ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://Scenes/collision.tres" id="1_cggpd"]
+[ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_cggpd"]
 [ext_resource type="Texture2D" uid="uid://bp74ly4a0dn6k" path="res://Art/Tileset/BG1.png" id="2_1q6tm"]
 [ext_resource type="Texture2D" uid="uid://bgfflk3e3sqy7" path="res://Art/Tileset/DungeonTileSet.png" id="2_v36qu"]
 [ext_resource type="Texture2D" uid="uid://dnkip47cg5dse" path="res://Art/Tileset/OutdoorTileset2.png" id="3_cggpd"]

@@ -169,6 +169,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.75, 0.75)
+collision_mask = 9
 script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]

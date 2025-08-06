@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=4 uid="uid://iau4wfq1jogf"]
 
-[ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://Scenes/collision.tres" id="1_qf6rc"]
+[ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_qf6rc"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vwg62"]
 [ext_resource type="Texture2D" uid="uid://bgfflk3e3sqy7" path="res://Art/Tileset/DungeonTileSet.png" id="2_qf6rc"]
 [ext_resource type="Texture2D" uid="uid://dnkip47cg5dse" path="res://Art/Tileset/OutdoorTileset2.png" id="3_53xsp"]
