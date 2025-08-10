@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://iau4wfq1jogf"]
+[gd_scene load_steps=16 format=4 uid="uid://iau4wfq1jogf"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_qf6rc"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vwg62"]
@@ -491,6 +491,9 @@ sources/0 = SubResource("TileSetAtlasSource_5e78q")
 sources/1 = SubResource("TileSetAtlasSource_l4wr6")
 sources/2 = SubResource("TileSetAtlasSource_5rvg2")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf6rc"]
+size = Vector2(6, 30)
+
 [node name="level_3" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -504,6 +507,8 @@ texture = ExtResource("4_5e78q")
 
 [node name="Player" parent="." instance=ExtResource("5_l4wr6")]
 position = Vector2(43, 37)
+collision_layer = 2
+collision_mask = 11
 
 [node name="BackroundTileMapLayer" type="TileMapLayer" parent="."]
 z_index = -10
@@ -514,3 +519,13 @@ tile_set = SubResource("TileSet_xfk5q")
 z_index = -1
 tile_map_data = PackedByteArray("AAAMAAoAAAADAAwAAAANAAwAAAAFAA0AAAAVAAcAAgAQAAEAAAAWAAYAAgAQAAEAAAAXAAUAAgAQAAEAAAAUAAgAAgAQAAEAAAAOAAIAAAACAAwAAAAOAAMAAAACAA0AAAA=")
 tile_set = SubResource("TileSet_42uki")
+
+[node name="Level3Finish" type="Area2D" parent="."]
+position = Vector2(686, 337)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level3Finish"]
+shape = SubResource("RectangleShape2D_qf6rc")
+
+[connection signal="body_entered" from="Level3Finish" to="Player" method="_on_level_3_finish_body_entered"]

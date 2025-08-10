@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://ic1o33gr07s0"]
+[gd_scene load_steps=15 format=4 uid="uid://ic1o33gr07s0"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vk57k"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbiu5w4s8c8b8" path="res://Scenes/player.tscn" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://dc5tv8xgy64xx" path="res://Scenes/slime.tscn" id="7_lsmp6"]
 [ext_resource type="PackedScene" uid="uid://b5rh2etx16lsv" path="res://Scenes/rat.tscn" id="8_xrdnt"]
+[ext_resource type="PackedScene" uid="uid://dmjsnks4xt0cv" path="res://Scenes/coin.tscn" id="9_wrinw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_evi0p"]
 texture = ExtResource("2_6444e")
@@ -268,7 +269,8 @@ texture = ExtResource("2_8ffim")
 
 [node name="Player" parent="." instance=ExtResource("3_xfk5q")]
 position = Vector2(124, 44)
-collision_layer = 3
+collision_layer = 2
+collision_mask = 11
 slide_on_ceiling = false
 
 [node name="DecorTileMapLayer" type="TileMapLayer" parent="."]
@@ -277,6 +279,8 @@ tile_map_data = PackedByteArray("AABFAAQAAgAGAAIAAABFAAMAAgAGAAIAAABHAAMAAgAIAAI
 tile_set = SubResource("TileSet_6r07y")
 
 [node name="Level1Finish" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level1Finish"]
 position = Vector2(1128, 63)
@@ -289,5 +293,37 @@ collision_mask = 2
 
 [node name="Rat" parent="." instance=ExtResource("8_xrdnt")]
 position = Vector2(1092, 77)
+
+[node name="Pickups" type="Node" parent="."]
+
+[node name="Coin" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(233, 65)
+
+[node name="Coin2" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(386, 41)
+
+[node name="Coin3" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(415, 41)
+
+[node name="Coin4" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(440, 40)
+
+[node name="Coin5" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(538, 55)
+
+[node name="Coin6" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(696, 52)
+
+[node name="Coin7" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(761, 71)
+
+[node name="Coin8" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(822, 56)
+
+[node name="Coin9" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(904, 32)
+
+[node name="Coin10" parent="Pickups" instance=ExtResource("9_wrinw")]
+position = Vector2(984, 53)
 
 [connection signal="body_entered" from="Level1Finish" to="Player" method="_on_level_1_finish_body_entered"]

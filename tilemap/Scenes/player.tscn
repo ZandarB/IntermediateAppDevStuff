@@ -169,7 +169,8 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.75, 0.75)
-collision_mask = 9
+collision_layer = 3
+collision_mask = 10
 script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -183,3 +184,19 @@ shape = SubResource("CapsuleShape2D_v0iea")
 sprite_frames = SubResource("SpriteFrames_v0iea")
 frame_progress = 0.432667
 speed_scale = 1.25
+
+[node name="CollisionTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="PlatformRay" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+collision_mask = 8
+
+[node name="Score" type="Label" parent="."]
+offset_left = 213.333
+offset_top = -168.0
+offset_right = 261.333
+offset_bottom = -145.0
+text = "Score:"
+
+[connection signal="timeout" from="CollisionTimer" to="." method="_on_collision_timer_timeout"]
