@@ -5,9 +5,11 @@ extends CharacterBody2D
 var direction_x = 0.0
 
 var score: int = 0
-
 var dropping_through = false
 var drop_platform_y = 0.0
+var max_jumps = 2
+var jumps_done = 0
+
 
 func _ready():
 	$CollisionTimer.connect("timeout", Callable(self, "_on_collision_reset_timer_timeout"))
@@ -29,8 +31,15 @@ func _process(_delta):
 func get_input():
 	direction_x = Input.get_axis("left", "right")
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if is_on_floor():
+		jumps_done = 0
+
+	if Input.is_action_just_pressed("jump") and jumps_done < max_jumps:
 		velocity.y = -300
+		jumps_done += 1
+		$AnimatedSprite2D.stop()
+		update_animation()
+		
 	elif Input.is_action_pressed("down") and is_on_floor() and not dropping_through:
 		dropping_through = true
 		set_collision_mask_value(4, false) 
@@ -46,6 +55,7 @@ func apply_gravity():
 func update_animation():
 	if not is_on_floor():
 		$AnimatedSprite2D.play("jump")
+
 	elif direction_x != 0:
 		$AnimatedSprite2D.play("run")
 	else:
@@ -80,13 +90,13 @@ func _enable_platform_collision():
 	set_collision_mask_value(4, true)
 	dropping_through = false
 
-func _on_key_1_body_entered(body: Node2D) -> void:
+func _on_key_body_entered(body: Node2D) -> void:
 	if body == self:
 		var layer = get_node("/root/Level4/TileMapLayer")
 		layer.set_cell(Vector2i(9, 3), 4, Vector2i(13, 94))
 		layer.set_cell(Vector2i(9, 4), 4, Vector2i(13, 95))
 
-		var key_node = get_node("/root/Level4/Key1")
+		var key_node = get_node("/root/Level4/Key")
 		if key_node:
 			key_node.queue_free()
 

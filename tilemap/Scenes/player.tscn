@@ -1,9 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://dbiu5w4s8c8b8"]
+[gd_scene load_steps=33 format=3 uid="uid://dbiu5w4s8c8b8"]
 
 [ext_resource type="Script" uid="uid://cmg3wx4m50djh" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cgmma376ey0dl" path="res://Art/Player/Sprites/without_outline/IDLE.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://c5gl0368kagb3" path="res://Art/Player/Sprites/without_outline/RUN.png" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://diy00eqj33ky4" path="res://Art/Player/Sprites/without_outline/JUMP.png" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dmd3m41ktsbw3" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Background_Cloud_1.png" id="7_fd4e3"]
+[ext_resource type="Texture2D" uid="uid://tq31uxf6upnl" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Background_Cloud_2.png" id="8_qqcod"]
+[ext_resource type="Texture2D" uid="uid://camxlb5dmisme" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Front_Clouds.png" id="10_fs7ks"]
+[ext_resource type="Texture2D" uid="uid://0q6447dw7li0" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Mountain_1.png" id="13_wpjfl"]
+[ext_resource type="Texture2D" uid="uid://btno5is3fabrv" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Mountain_2.png" id="14_bi64h"]
+[ext_resource type="Texture2D" uid="uid://bibhommxmxr4g" path="res://Art/Backrounds/2560 x 1440/Stormy_Mountains_Mountain_3.png" id="15_2ijsl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v0iea"]
 radius = 9.0
@@ -135,7 +141,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump",
-"speed": 5.0
+"speed": 7.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -176,13 +182,49 @@ script = ExtResource("1_cvnsp")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
 
+[node name="StormyMountainsBackgroundCloud1" type="Sprite2D" parent="Camera2D"]
+z_index = -9
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("7_fd4e3")
+
+[node name="StormyMountainsBackgroundCloud2" type="Sprite2D" parent="Camera2D"]
+z_index = -9
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("8_qqcod")
+
+[node name="StormyMountainsFrontClouds" type="Sprite2D" parent="Camera2D"]
+z_index = -10
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("10_fs7ks")
+
+[node name="StormyMountainsMountain1" type="Sprite2D" parent="Camera2D"]
+z_index = -7
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("13_wpjfl")
+
+[node name="StormyMountainsMountain2" type="Sprite2D" parent="Camera2D"]
+z_index = -7
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("14_bi64h")
+
+[node name="StormyMountainsMountain3" type="Sprite2D" parent="Camera2D"]
+z_index = -8
+position = Vector2(-5.33333, -5.33333)
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("15_2ijsl")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.75, 3.25)
 shape = SubResource("CapsuleShape2D_v0iea")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v0iea")
-frame_progress = 0.432667
+frame_progress = 0.0129824
 speed_scale = 1.25
 
 [node name="CollisionTimer" type="Timer" parent="."]

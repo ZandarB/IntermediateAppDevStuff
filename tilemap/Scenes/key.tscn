@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfunhn8lvunju"]
+
+[ext_resource type="Texture2D" uid="uid://xi7v0aydq4cw" path="res://Art/Items/outline_dark/key_small/key_A_gold.png" id="1_ut0wq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_udxw8"]
+radius = 4.0
+height = 16.0
+
+[node name="Key" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="KeyAGold" type="Sprite2D" parent="."]
+texture = ExtResource("1_ut0wq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_udxw8")

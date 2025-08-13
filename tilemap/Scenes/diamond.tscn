@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://bmbqmkib2d122"]
+
+[ext_resource type="Texture2D" uid="uid://jtb67h1hp60t" path="res://Art/Items/outline_dark/gem_large/frame0000.png" id="1_drdxg"]
+[ext_resource type="Script" uid="uid://wurdqm0dv3yf" path="res://Scripts/diamond.gd" id="1_vn7gf"]
+[ext_resource type="Texture2D" uid="uid://bpj767cx63vif" path="res://Art/Items/outline_dark/gem_large/frame0001.png" id="2_vn7gf"]
+[ext_resource type="Texture2D" uid="uid://ys1fxf5v1t0y" path="res://Art/Items/outline_dark/gem_large/frame0002.png" id="3_s617w"]
+[ext_resource type="Texture2D" uid="uid://pqnv6pt655w4" path="res://Art/Items/outline_dark/gem_large/frame0003.png" id="4_le2ed"]
+[ext_resource type="Texture2D" uid="uid://71e4e02yy1h1" path="res://Art/Items/outline_dark/gem_large/frame0004.png" id="5_2tmhd"]
+[ext_resource type="Texture2D" uid="uid://berh0of6etwg4" path="res://Art/Items/outline_dark/gem_large/frame0005.png" id="6_5twid"]
+[ext_resource type="Texture2D" uid="uid://xfu8gxkbehyd" path="res://Art/Items/outline_dark/gem_large/frame0006.png" id="7_6w4yx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yb7a0"]
+radius = 12.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f8myn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_drdxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vn7gf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s617w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_le2ed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2tmhd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5twid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6w4yx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Diamond" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_vn7gf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_yb7a0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_f8myn")
+frame_progress = 0.0603889
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
