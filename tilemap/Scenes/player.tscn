@@ -234,11 +234,4 @@ wait_time = 1.5
 target_position = Vector2(0, 20)
 collision_mask = 8
 
-[node name="Score" type="Label" parent="."]
-offset_left = 213.333
-offset_top = -168.0
-offset_right = 261.333
-offset_bottom = -145.0
-text = "Score:"
-
 [connection signal="timeout" from="CollisionTimer" to="." method="_on_collision_timer_timeout"]

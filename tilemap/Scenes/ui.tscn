@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cilg2ef7d4apf"]
+
+[node name="Score" type="Label"]
+offset_left = 213.333
+offset_top = -168.0
+offset_right = 261.333
+offset_bottom = -145.0
+text = "Score:"

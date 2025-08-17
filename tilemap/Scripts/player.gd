@@ -63,55 +63,9 @@ func update_animation():
 
 	$AnimatedSprite2D.flip_h = direction_x < 0
 
-func _on_level_1_finish_body_entered(body: Node2D) -> void:
-	if body == self:
-		call_deferred("_change_scene", "res://Scenes/level_2.tscn")
-		
-func _on_level_2_finish_body_entered(body: Node2D) -> void:
-	if body == self:
-		call_deferred("_change_scene", "res://Scenes/level_3.tscn")
-		
-func _on_level_3_finish_body_entered(body: Node2D) -> void:
-	if body == self:
-		call_deferred("_change_scene", "res://Scenes/level_4.tscn")
-
-func _on_level_4_finish_body_entered(body: Node2D) -> void:
-	if body == self:
-		call_deferred("_change_scene", "res://Scenes/level_5.tscn")
-		
-func _change_scene(path: String) -> void:
-	get_tree().change_scene_to_file(path)
-
 func _on_collision_reset_timer_timeout() -> void:
 	set_collision_mask_value(4, true)
-
 
 func _enable_platform_collision():
 	set_collision_mask_value(4, true)
 	dropping_through = false
-
-func _on_key_body_entered(body: Node2D) -> void:
-	if body == self:
-		var layer = get_node("/root/Level4/TileMapLayer")
-		layer.set_cell(Vector2i(9, 3), 4, Vector2i(13, 94))
-		layer.set_cell(Vector2i(9, 4), 4, Vector2i(13, 95))
-
-		var key_node = get_node("/root/Level4/Key")
-		if key_node:
-			key_node.queue_free()
-
-func _on_key_2_body_entered(body: Node2D) -> void:
-	if body == self:
-		var layer = get_node("/root/Level4/TileMapLayer")
-		layer.set_cell(Vector2i(36, 20), 4, Vector2i(13, 94))
-		layer.set_cell(Vector2i(36, 21), 4, Vector2i(13, 95))
-
-		var key_node = get_node("/root/Level4/Key2")
-		if key_node:
-			key_node.queue_free()
-
-func add_score(amount: int) -> void:
-	score += amount
-	var label = $Score 
-	if label:
-		label.text = "Score: " + str(score)
