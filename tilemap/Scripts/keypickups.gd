@@ -1,12 +1,12 @@
 extends Node
 
-func _on_key_body_entered(body: Node2D) -> void:
+func _on_key_body_entered(_body: Node2D) -> void:
 	_handle_key(Vector2i(48, 25), "Key", "Level2")
 
-func _on_key_2_body_entered(body: Node2D) -> void:
+func _on_key_2_body_entered(_body: Node2D) -> void:
 	_handle_key(Vector2i(75, 42), "Key2", "Level2")
 	
-func _on_key_3_body_entered(body: Node2D) -> void:
+func _on_key_3_body_entered(_body: Node2D) -> void:
 	_handle_key(Vector2i(71, -6), "Key3", "Level3")
 	
 func _handle_key(start_pos: Vector2i, key_name: String, level_name: String) -> void:
