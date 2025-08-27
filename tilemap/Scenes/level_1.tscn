@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ic1o33gr07s0"]
+[gd_scene load_steps=21 format=4 uid="uid://ic1o33gr07s0"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vk57k"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dmjsnks4xt0cv" path="res://Scenes/coin.tscn" id="9_wrinw"]
 [ext_resource type="PackedScene" uid="uid://bmbqmkib2d122" path="res://Scenes/diamond.tscn" id="10_chwpn"]
 [ext_resource type="PackedScene" uid="uid://cilg2ef7d4apf" path="res://Scenes/ui.tscn" id="11_af3po"]
-[ext_resource type="Script" uid="uid://djxnw7r0ytnjf" path="res://Scripts/slime.gd" id="11_oovug"]
 [ext_resource type="Script" uid="uid://bnw1icjmigngx" path="res://Scripts/ui.gd" id="11_uy8f0"]
 [ext_resource type="Script" uid="uid://dkh3mblfb423g" path="res://Scripts/rat.gd" id="13_oovug"]
 
@@ -2238,9 +2237,6 @@ tile_set = SubResource("TileSet_6r07y")
 position = Vector2(620, 58)
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("11_oovug")
-max_health = 5
-player_detection_radius = 200.0
 
 [node name="Rat" parent="Enemys" instance=ExtResource("8_xrdnt")]
 position = Vector2(1442, 189)
