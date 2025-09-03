@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgsiqol35o8it"]
+
+[ext_resource type="Texture2D" uid="uid://bj1t64rdx6p6b" path="res://Art/Trap and Weapon/Suriken.png" id="1_335ol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_335ol"]
+atlas = ExtResource("1_335ol")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78js"]
+atlas = ExtResource("1_335ol")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ciums"]
+atlas = ExtResource("1_335ol")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mfry"]
+atlas = ExtResource("1_335ol")
+region = Rect2(112, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t42kr"]
+atlas = ExtResource("1_335ol")
+region = Rect2(144, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlg66"]
+atlas = ExtResource("1_335ol")
+region = Rect2(176, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32l1b"]
+atlas = ExtResource("1_335ol")
+region = Rect2(208, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rirv"]
+atlas = ExtResource("1_335ol")
+region = Rect2(240, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmx03"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_335ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78js")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ciums")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t42kr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlg66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32l1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rirv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_10cpf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nmdig"]
+radius = 12.6667
+
+[node name="SpinningBladeLeft" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 3
+collision_mask = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_kmx03")
+frame_progress = 0.014265
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_10cpf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_nmdig")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nmdig")
