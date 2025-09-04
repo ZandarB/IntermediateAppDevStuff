@@ -15,7 +15,7 @@ func _ready():
 	$CollisionTimer.connect("timeout", Callable(self, "_on_collision_reset_timer_timeout"))
 	$PlatformRay.enabled = true
 
-func _process(_delta):
+func _physics_process(delta):
 	get_input()
 	apply_gravity()
 	velocity.x = direction_x * speed
@@ -69,3 +69,7 @@ func _on_collision_reset_timer_timeout() -> void:
 func _enable_platform_collision():
 	set_collision_mask_value(4, true)
 	dropping_through = false
+
+
+func _on_spinning_blade_left_2_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

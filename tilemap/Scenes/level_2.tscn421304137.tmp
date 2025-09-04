@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://iau4wfq1jogf"]
+[gd_scene load_steps=20 format=4 uid="uid://iau4wfq1jogf"]
 
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_12fag"]
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_cggpd"]
@@ -10,8 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dfunhn8lvunju" path="res://Scenes/key.tscn" id="7_055b2"]
 [ext_resource type="Script" uid="uid://bnw1icjmigngx" path="res://Scripts/ui.gd" id="8_uhnj4"]
 [ext_resource type="PackedScene" uid="uid://cilg2ef7d4apf" path="res://Scenes/ui.tscn" id="9_42uki"]
-[ext_resource type="PackedScene" uid="uid://812xaqcmss8c" path="res://Scenes/screenmelt.tscn" id="11_ait6c"]
-[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="12_vcilj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf6rc"]
 size = Vector2(6, 30)
@@ -507,13 +505,11 @@ position = Vector2(663, 323)
 collision_layer = 2
 collision_mask = 11
 
-[node name="Level2Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
+[node name="Level2Finish" type="Area2D" parent="."]
 position = Vector2(786, 686)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_42uki")
-melt = NodePath("../MeltStuff/Melt")
-background = NodePath("../MeltStuff/Background")
 next_scene_path = "res://Scenes/level_3.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level2Finish"]
@@ -557,20 +553,6 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 23.0
 grow_horizontal = 0
-
-[node name="MeltStuff" type="CanvasLayer" parent="."]
-
-[node name="Melt" parent="MeltStuff" instance=ExtResource("11_ait6c")]
-modulate = Color(0, 0, 0, 0.988235)
-top_level = true
-z_index = 1
-expand_mode = 1
-
-[node name="Background" type="TextureRect" parent="MeltStuff"]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("12_vcilj")
 
 [connection signal="body_entered" from="Level2Finish" to="Level2Finish" method="_on_body_entered"]
 [connection signal="body_entered" from="Pickups/Key" to="Pickups" method="_on_key_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://ic1o33gr07s0"]
+[gd_scene load_steps=26 format=4 uid="uid://ic1o33gr07s0"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vk57k"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://cv7l052y5gm5d" path="res://Scenes/spike.tscn" id="15_oovug"]
 [ext_resource type="PackedScene" uid="uid://cpiva3m63bav1" path="res://Scenes/spinning_blade_left.tscn" id="16_8i23i"]
 [ext_resource type="PackedScene" uid="uid://bgsiqol35o8it" path="res://Scenes/spinning_blade_right.tscn" id="17_8yhm2"]
+[ext_resource type="PackedScene" uid="uid://812xaqcmss8c" path="res://Scenes/screenmelt.tscn" id="18_yltlr"]
+[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="19_6ssoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evi0p"]
 size = Vector2(5.875, 12)
@@ -2168,10 +2170,12 @@ collision_layer = 2
 collision_mask = 11
 slide_on_ceiling = false
 
-[node name="Level1Finish" type="Area2D" parent="."]
+[node name="Level1Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_6r07y")
+melt = NodePath("../MeltStuff/Melt")
+background = NodePath("../MeltStuff/Background")
 next_scene_path = "res://Scenes/level_2.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level1Finish"]
@@ -2347,5 +2351,19 @@ position = Vector2(2032, 472)
 
 [node name="SpinningBladeLeft3" parent="Traps/SpinningBlades" instance=ExtResource("17_8yhm2")]
 position = Vector2(1984, 232)
+
+[node name="MeltStuff" type="CanvasLayer" parent="."]
+
+[node name="Melt" parent="MeltStuff" instance=ExtResource("18_yltlr")]
+modulate = Color(0, 0, 0, 0.988235)
+top_level = true
+z_index = 1
+expand_mode = 1
+
+[node name="Background" type="TextureRect" parent="MeltStuff"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("19_6ssoq")
 
 [connection signal="body_entered" from="Level1Finish" to="Level1Finish" method="_on_body_entered"]

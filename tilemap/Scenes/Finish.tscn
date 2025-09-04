@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://17qbfb4vqekp"]
+
+[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="1_4ua6g"]
+
+[node name="Finish" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 6000.0
+offset_bottom = 4000.0
+texture = ExtResource("1_4ua6g")
+
+[node name="FinishText" type="Label" parent="."]
+offset_left = 539.0
+offset_top = 251.0
+offset_right = 579.0
+offset_bottom = 274.0
+text = "Amongus"

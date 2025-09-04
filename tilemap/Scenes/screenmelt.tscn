@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://812xaqcmss8c"]
+
+[ext_resource type="Shader" uid="uid://ck5ua38nm8nlr" path="res://melt.gdshader" id="2_oqbf7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_do44r"]
+shader = ExtResource("2_oqbf7")
+shader_parameter/progress = 0.0
+shader_parameter/meltiness = 1.0
+shader_parameter/pixel_size = 0.03
+
+[node name="Melt" type="TextureRect"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+z_index = 10
+material = SubResource("ShaderMaterial_do44r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
