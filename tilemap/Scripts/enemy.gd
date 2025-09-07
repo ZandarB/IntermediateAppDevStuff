@@ -13,6 +13,7 @@ var hit_stun_time := 0.0
 var direction := 1
 
 func _ready() -> void:
+	connect("area_entered", Callable(self, "_on_area_entered"))
 	health = max_health
 	$AnimatedSprite2D.play("default")
 	flip_rays()
@@ -42,11 +43,6 @@ func flip_rays() -> void:
 	$WallRay.position.x = abs($WallRay.position.x) * direction
 	$FloorRay.position.x = abs($FloorRay.position.x) * direction
 
-func _on_body_entered(body: Node2D) -> void:
-	if is_dead:
-		return
-	if body.name == ("Player"):
-		apply_damage(1)
 
 func apply_damage(amount: int) -> void:
 	health -= amount
@@ -70,3 +66,9 @@ func die() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if not is_dead:
 		$AnimatedSprite2D.play("default")
+
+func _on_area_entered(area: Area2D) -> void:
+	if is_dead:
+		return
+	if area.name.begins_with("Attack"):
+		apply_damage(1)

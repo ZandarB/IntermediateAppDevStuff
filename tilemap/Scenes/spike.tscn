@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv7l052y5gm5d"]
+[gd_scene load_steps=5 format=3 uid="uid://cv7l052y5gm5d"]
 
+[ext_resource type="Script" uid="uid://d7tyi6rka3wq" path="res://Scripts/spike.gd" id="1_1hotg"]
 [ext_resource type="Texture2D" uid="uid://cy2l41qlsy6ad" path="res://Art/Trap and Weapon/Spike.png" id="1_cdj5a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cdj5a"]
@@ -8,6 +9,9 @@
 size = Vector2(30, 7.14063)
 
 [node name="Spike" type="Area2D"]
+collision_layer = 3
+collision_mask = 10
+script = ExtResource("1_1hotg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_cdj5a")
@@ -21,4 +25,7 @@ shape = SubResource("RectangleShape2D_nuopa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.57)
+scale = Vector2(1, 1.1)
 shape = SubResource("RectangleShape2D_nuopa")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b60eh3v6nen31"]
+
+[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="1_drqef"]
+[ext_resource type="Script" uid="uid://dq0w4b2rjda1u" path="res://Scripts/textcrawl.gd" id="2_2uec5"]
+
+[node name="IntermediaryScene" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4848.0
+offset_bottom = 3352.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_drqef")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 37.0
+offset_right = 81.0
+offset_bottom = 60.0
+script = ExtResource("2_2uec5")

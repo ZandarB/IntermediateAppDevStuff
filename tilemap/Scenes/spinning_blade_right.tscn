@@ -91,6 +91,7 @@ scale = Vector2(0.875, 0.875)
 shape = SubResource("CircleShape2D_nmdig")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
 shape = SubResource("CircleShape2D_nmdig")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

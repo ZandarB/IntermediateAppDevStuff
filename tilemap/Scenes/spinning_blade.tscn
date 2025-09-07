@@ -68,7 +68,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sna38"]
-radius = 12.6667
+radius = 12.9524
 
 [node name="SpinningBlade" type="Area2D"]
 z_index = -1
@@ -82,6 +82,7 @@ sprite_frames = SubResource("SpriteFrames_lv5bi")
 frame_progress = 0.631851
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
 shape = SubResource("CircleShape2D_sna38")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
