@@ -113,3 +113,6 @@ func attack():
 	elif random_int == 3:
 		hitbox3.set_collision_layer_value(3, true)
 		$AnimatedSprite2D.play("attack3")
+
+func take_damage (damage: int):
+	print("amogus")

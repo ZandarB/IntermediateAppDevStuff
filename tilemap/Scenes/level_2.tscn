@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://iau4wfq1jogf"]
+[gd_scene load_steps=21 format=4 uid="uid://iau4wfq1jogf"]
 
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_12fag"]
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_cggpd"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dbiu5w4s8c8b8" path="res://Scenes/player.tscn" id="3_v36qu"]
 [ext_resource type="Script" uid="uid://cbepmxhcw7lw3" path="res://Scripts/keypickups.gd" id="7_2mgoq"]
 [ext_resource type="PackedScene" uid="uid://dfunhn8lvunju" path="res://Scenes/key.tscn" id="7_055b2"]
-[ext_resource type="Script" uid="uid://bnw1icjmigngx" path="res://Scripts/ui.gd" id="8_uhnj4"]
 [ext_resource type="PackedScene" uid="uid://cilg2ef7d4apf" path="res://Scenes/ui.tscn" id="9_42uki"]
 [ext_resource type="PackedScene" uid="uid://812xaqcmss8c" path="res://Scenes/screenmelt.tscn" id="11_ait6c"]
 [ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="12_vcilj"]
@@ -505,7 +504,6 @@ sources/2 = SubResource("TileSetAtlasSource_5rvg2")
 [node name="Player" parent="." instance=ExtResource("3_v36qu")]
 position = Vector2(663, 323)
 collision_layer = 2
-collision_mask = 11
 
 [node name="Level2Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
 position = Vector2(786, 686)
@@ -545,19 +543,6 @@ position = Vector2(652, 680)
 [node name="Key2" parent="Pickups" instance=ExtResource("7_055b2")]
 position = Vector2(1015, 396)
 
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("8_uhnj4")
-
-[node name="Score" parent="UI" instance=ExtResource("9_42uki")]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -85.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 23.0
-grow_horizontal = 0
-
 [node name="MeltStuff" type="CanvasLayer" parent="."]
 
 [node name="Melt" parent="MeltStuff" instance=ExtResource("11_ait6c")]
@@ -571,6 +556,8 @@ visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("12_vcilj")
+
+[node name="UI" parent="." instance=ExtResource("9_42uki")]
 
 [connection signal="body_entered" from="Level2Finish" to="Level2Finish" method="_on_body_entered"]
 [connection signal="body_entered" from="Pickups/Key" to="Pickups" method="_on_key_body_entered"]

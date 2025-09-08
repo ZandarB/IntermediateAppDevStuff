@@ -1,22 +1,37 @@
 [gd_scene load_steps=3 format=3 uid="uid://b60eh3v6nen31"]
 
-[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="1_drqef"]
+[ext_resource type="Texture2D" uid="uid://ddkshl3ywm3vw" path="res://Background.png" id="1_2uec5"]
 [ext_resource type="Script" uid="uid://dq0w4b2rjda1u" path="res://Scripts/textcrawl.gd" id="2_2uec5"]
 
 [node name="IntermediaryScene" type="TextureRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 4848.0
-offset_bottom = 3352.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_drqef")
+texture = ExtResource("1_2uec5")
 
-[node name="Label" type="Label" parent="."]
+[node name="StoryLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 37.0
 offset_right = 81.0
 offset_bottom = 60.0
 script = ExtResource("2_2uec5")
+
+[node name="SpaceButtonSkip" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -119.0
+offset_right = 104.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press Space to Skip"
+horizontal_alignment = 1
+vertical_alignment = 2

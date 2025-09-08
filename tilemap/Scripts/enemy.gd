@@ -4,6 +4,7 @@ class_name Enemy
 @export var speed := 50
 @export var max_health := 5
 @export var player_detection_radius := 200.0
+@export var score_value := 20
 
 var hit_stun_duration := 1.0
 
@@ -11,6 +12,9 @@ var health: int
 var is_dead := false
 var hit_stun_time := 0.0
 var direction := 1
+
+signal enemy_died(score_amount: int)
+
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
@@ -51,6 +55,7 @@ func apply_damage(amount: int) -> void:
 
 	if health <= 0:
 		die()
+		
 
 func _play_hit_animation() -> void:
 	var tween := create_tween()
@@ -62,6 +67,7 @@ func die() -> void:
 	is_dead = true
 	speed = 0
 	$AnimatedSprite2D.play("dead")
+	emit_signal("enemy_died", score_value)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if not is_dead:
