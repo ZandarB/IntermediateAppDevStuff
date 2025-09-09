@@ -29,7 +29,6 @@ texture = ExtResource("2_l4wr6")
 [node name="Player" parent="." instance=ExtResource("3_5rvg2")]
 position = Vector2(1378, -1226)
 collision_layer = 2
-collision_mask = 11
 
 [node name="Pickups" type="Node" parent="."]
 script = ExtResource("5_qf6rc")

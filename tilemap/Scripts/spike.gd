@@ -1,13 +1,6 @@
-extends Area2D
+extends Trap
 
-var damage = 10
-var ready_to_detect = false
-
-func _ready():
-	call_deferred("_enable_detection")
-
-func _enable_detection():
-	ready_to_detect = true
-
-func _on_body_entered(body):
-	print("Player touched the Spikes!")
+func _ready() -> void:
+	damage = 25
+	detect_delay = 1
+	super._ready()

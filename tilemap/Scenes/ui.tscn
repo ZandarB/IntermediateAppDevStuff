@@ -9,7 +9,17 @@ script = ExtResource("1_jxero")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+offset_left = -65.0
+offset_top = 5.0
+offset_right = -4.0
+offset_bottom = 28.0
 grow_horizontal = 0
+text = "Score: 0"
 metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 93.0
+offset_bottom = 28.0
+text = "Health: 100"

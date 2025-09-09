@@ -1,17 +1,19 @@
 extends Area2D
 class_name Enemy
 
-@export var speed := 50
-@export var max_health := 5
-@export var player_detection_radius := 200.0
-@export var score_value := 20
+@export var speed: int
+@export var max_health: int
+@export var player_detection_radius: float
+@export var score_value: int
 
+@onready var player_detection = $PlayerDetection
 var hit_stun_duration := 1.0
 
 var health: int
 var is_dead := false
 var hit_stun_time := 0.0
 var direction := 1
+var vertical_offset: float = 1
 
 signal enemy_died(score_amount: int)
 
@@ -21,15 +23,15 @@ func _ready() -> void:
 	health = max_health
 	$AnimatedSprite2D.play("default")
 	flip_rays()
+	$PlayerDetection.connect("body_entered", Callable(self, "_on_player_detection_body_entered"))
+	$PlayerDetection.connect("body_exited", Callable(self, "_on_player_detection_body_exited"))
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-
 	if hit_stun_time > 0:
 		hit_stun_time -= delta
 		return
-
 	patrol(delta)
 
 func patrol(delta: float) -> void:
@@ -46,8 +48,12 @@ func should_flip_direction() -> bool:
 func flip_rays() -> void:
 	$WallRay.position.x = abs($WallRay.position.x) * direction
 	$FloorRay.position.x = abs($FloorRay.position.x) * direction
+	
+	$PlayerDetection.scale.x = player_detection_radius / 2 * direction
+	$PlayerDetection.scale.y = player_detection_radius / 2 * direction
+	$PlayerDetection.position.x = player_detection_radius * 4 * direction
 
-
+	
 func apply_damage(amount: int) -> void:
 	health -= amount
 	hit_stun_time = hit_stun_duration
@@ -78,3 +84,13 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if area.name.begins_with("Attack"):
 		apply_damage(1)
+
+func _on_player_detection_body_entered(body: Node2D) -> void:
+	if is_dead:
+		return
+	if body.is_in_group("Player"):
+		pass
+
+func _on_player_detection_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		pass

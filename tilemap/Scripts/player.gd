@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var hitbox2 = $Attack2Hitbox
 @onready var hitbox3 = $Attack3Hitbox
 
-var score: int = 0
 var dropping_through = false
 var drop_platform_y = 0.0
 var max_jumps = 2
@@ -115,4 +114,9 @@ func attack():
 		$AnimatedSprite2D.play("attack3")
 
 func take_damage (damage: int):
-	print("amogus")
+	Global.health -= damage
+	var root = get_tree().get_current_scene()
+	var health_manager = root.get_node_or_null("UI")
+	if health_manager:
+		health_manager.update_health()
+	
