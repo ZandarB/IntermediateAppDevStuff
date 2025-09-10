@@ -14,26 +14,32 @@ var rng = RandomNumberGenerator.new()
 var facing_left = false
 var attacking = false
 var direction_x = 0.0
+var player_dead = false
 
 func _ready():
 	$CollisionTimer.connect("timeout", Callable(self, "_on_collision_reset_timer_timeout"))
 	$PlatformRay.enabled = true
 
 func _physics_process(delta):
-	get_input()
-	apply_gravity()
-	if not attacking:
-		velocity.x = direction_x * speed
+	if (Global.health <= 0 and player_dead == false):
+		player_dead = true
+		$AnimatedSprite2D.play("die")
+		speed = 0
+	elif (player_dead == false):
+		get_input()
+		apply_gravity()
+		if not attacking:
+			velocity.x = direction_x * speed
+		else:
+			velocity.x = 0
+		move_and_slide()
+		if dropping_through:
+			if global_position.y > drop_platform_y + collision_reenable_offset:
+				_enable_platform_collision()
+
+		update_animation()
 	else:
-		velocity.x = 0
-
-	move_and_slide()
-
-	if dropping_through:
-		if global_position.y > drop_platform_y + collision_reenable_offset:
-			_enable_platform_collision()
-
-	update_animation()
+		pass
 
 func get_input():
 	direction_x = Input.get_axis("left", "right")

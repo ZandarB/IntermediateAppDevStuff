@@ -7,6 +7,7 @@ var healthLabel: Label
 func _ready():
 	if has_node("Score"):
 		scoreLabel = $Score
+		healthLabel = $Health
 		add_score(0)
 
 func add_score(amount: int) -> void:
