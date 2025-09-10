@@ -2163,7 +2163,7 @@ sources/3 = SubResource("TileSetAtlasSource_6r07y")
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("3_xfk5q")]
-position = Vector2(585, 8)
+position = Vector2(1538, 564)
 slide_on_ceiling = false
 
 [node name="Level1Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
@@ -2344,19 +2344,15 @@ position = Vector2(2032, 472)
 position = Vector2(1984, 207)
 
 [node name="MeltStuff" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Melt" parent="MeltStuff" instance=ExtResource("18_yltlr")]
 modulate = Color(0, 0, 0, 0.988235)
 top_level = true
 z_index = 1
-offset_left = 18.0
-offset_top = -37.0
-offset_right = 18.0
-offset_bottom = -37.0
 expand_mode = 1
 
 [node name="Background" type="TextureRect" parent="MeltStuff"]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("19_6ssoq")
