@@ -60,7 +60,14 @@ func apply_damage(amount: int) -> void:
 	_play_hit_animation()
 
 	if health <= 0:
-		die()
+		$AnimatedSprite2D.play("dead")
+		is_dead = true
+		speed = 0
+		
+		var root = get_tree().get_current_scene()
+		var score_manager = root.get_node_or_null("UI")
+		if score_manager:
+			score_manager.update_score(score_value)
 		
 
 func _play_hit_animation() -> void:
@@ -68,12 +75,6 @@ func _play_hit_animation() -> void:
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.0)
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1).set_delay(0.2)
 	$AnimatedSprite2D.play("hit")
-
-func die() -> void:
-	is_dead = true
-	speed = 0
-	$AnimatedSprite2D.play("dead")
-	emit_signal("enemy_died", score_value)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if not is_dead:

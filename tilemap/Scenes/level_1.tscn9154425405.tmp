@@ -2182,36 +2182,47 @@ shape = SubResource("RectangleShape2D_evi0p")
 
 [node name="Coin" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(233, 65)
+value = null
 
 [node name="Coin2" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(386, 41)
+value = null
 
 [node name="Coin3" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(415, 41)
+value = null
 
 [node name="Coin4" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(444, 40)
+value = null
 
 [node name="Coin5" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(538, 55)
+value = null
 
 [node name="Coin6" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(697, 63)
+value = null
 
 [node name="Coin7" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(1034, 95)
+value = null
 
 [node name="Coin8" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(801, 78)
+value = null
 
 [node name="Coin9" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(910, 63)
+value = null
 
 [node name="Coin10" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(932, 62)
+value = null
 
 [node name="Coin11" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(1534, 624)
+value = null
 
 [node name="Diamond" parent="Pickups" instance=ExtResource("10_chwpn")]
 position = Vector2(1192, 57)
@@ -2224,12 +2235,15 @@ position = Vector2(1458, 70)
 
 [node name="Coin12" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(1823, 608)
+value = null
 
 [node name="Coin13" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(1846, 608)
+value = null
 
 [node name="Coin14" parent="Pickups" instance=ExtResource("9_wrinw")]
 position = Vector2(1869, 608)
+value = null
 
 [node name="Diamond4" parent="Pickups" instance=ExtResource("10_chwpn")]
 position = Vector2(1670, 559)

@@ -7,14 +7,15 @@ var healthLabel: Label
 func _ready():
 	if has_node("Score"):
 		scoreLabel = $Score
+		update_score(0)
+	if has_node("Health"):
 		healthLabel = $Health
-		add_score(0)
 
-func add_score(amount: int) -> void:
+
+
+func update_score(amount: int) -> void:
 	Global.score += amount
-	if scoreLabel:
-		scoreLabel.text = "Score: " + str(Global.score)
+	scoreLabel.text = "Score: " + str(Global.score)
 
 func update_health() -> void:
-	if healthLabel:
-		healthLabel.text = "Health: " + str(Global.health)
+	healthLabel.text = "Health: " + str(Global.health)

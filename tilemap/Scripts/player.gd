@@ -36,7 +36,6 @@ func _physics_process(delta):
 		if dropping_through:
 			if global_position.y > drop_platform_y + collision_reenable_offset:
 				_enable_platform_collision()
-
 		update_animation()
 	else:
 		pass

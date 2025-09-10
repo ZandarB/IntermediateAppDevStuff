@@ -9,5 +9,5 @@ func _on_body_entered(body: Node2D) -> void:
 		var root = get_tree().get_current_scene()
 		var score_manager = root.get_node_or_null("UI")
 		if score_manager:
-			score_manager.add_score(value)
-		queue_free()
+			score_manager.update_score(value)
+	queue_free()
