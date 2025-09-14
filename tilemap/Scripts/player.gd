@@ -15,6 +15,9 @@ var facing_left = false
 var attacking = false
 var direction_x = 0.0
 var player_dead = false
+var stun_time = 0.5
+var stun_timer = 0.0
+
 
 func _ready():
 	$CollisionTimer.connect("timeout", Callable(self, "_on_collision_reset_timer_timeout"))
@@ -39,10 +42,20 @@ func _physics_process(delta):
 		update_animation()
 	else:
 		pass
+	if stun_timer > 0.0:
+		stun_timer -= delta
+		if stun_timer <= 0.0:
+			speed = 150  
+			attacking = false
+			update_animation()
+
 
 func get_input():
 	direction_x = Input.get_axis("left", "right")
-
+	
+	if stun_timer > 0.0:
+		return
+	
 	if is_on_floor():
 		jumps_done = 0
 
@@ -68,19 +81,22 @@ func apply_gravity():
 	velocity.y += 20
 
 func update_animation():
+	if stun_timer > 0.0:
+		return
+	
 	if direction_x != 0:
 		facing_left = direction_x < 0
 	
-	if attacking == true:
+	if attacking:
 		return
 		
 	if not is_on_floor():
 		$AnimatedSprite2D.play("jump")
-
 	elif direction_x != 0:
 		$AnimatedSprite2D.play("run")
 	else:
 		$AnimatedSprite2D.play("default")
+	
 	$AnimatedSprite2D.flip_h = facing_left
 
 func _on_collision_reset_timer_timeout() -> void:
@@ -124,4 +140,9 @@ func take_damage (damage: int):
 	var health_manager = root.get_node_or_null("UI")
 	if health_manager:
 		health_manager.update_health()
+	$AnimatedSprite2D.play("hurt")
+	speed = 0
+	stun_timer = stun_time
+	attacking = false
+	direction_x = 0   
 	

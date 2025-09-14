@@ -31,8 +31,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if hit_stun_time > 0:
 		hit_stun_time -= delta
-		return
-	patrol(delta)
+	else:
+		patrol(delta)
 
 func patrol(delta: float) -> void:
 	position.x += direction * speed * delta
@@ -53,22 +53,24 @@ func flip_rays() -> void:
 	$PlayerDetection.scale.y = player_detection_radius / 2 * direction
 	$PlayerDetection.position.x = player_detection_radius * 4 * direction
 
-	
 func apply_damage(amount: int) -> void:
+	if is_dead:
+		return
+
 	health -= amount
 	hit_stun_time = hit_stun_duration
 	_play_hit_animation()
 
 	if health <= 0:
-		$AnimatedSprite2D.play("dead")
 		is_dead = true
+		$AnimatedSprite2D.play("dead")
 		speed = 0
 		
 		var root = get_tree().get_current_scene()
 		var score_manager = root.get_node_or_null("UI")
 		if score_manager:
 			score_manager.update_score(score_value)
-		
+			
 
 func _play_hit_animation() -> void:
 	var tween := create_tween()
@@ -76,15 +78,14 @@ func _play_hit_animation() -> void:
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1).set_delay(0.2)
 	$AnimatedSprite2D.play("hit")
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if not is_dead:
-		$AnimatedSprite2D.play("default")
-
 func _on_area_entered(area: Area2D) -> void:
+	print("entered area")
 	if is_dead:
 		return
 	if area.name.begins_with("Attack"):
 		apply_damage(1)
+		print("hit")
+		hit_stun_time = hit_stun_duration
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if is_dead:
