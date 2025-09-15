@@ -248,7 +248,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack1",
-"speed": 5.0
+"speed": 7.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -268,7 +268,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack2",
-"speed": 5.0
+"speed": 7.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -291,7 +291,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack3",
-"speed": 5.0
+"speed": 7.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -478,7 +478,7 @@ shape = SubResource("CapsuleShape2D_v0iea")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v0iea")
-frame_progress = 0.935625
+animation = &"attack1"
 speed_scale = 1.25
 
 [node name="CollisionTimer" type="Timer" parent="."]
@@ -489,7 +489,7 @@ target_position = Vector2(0, 20)
 collision_mask = 8
 
 [node name="Attack1Hitbox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack1Hitbox"]
@@ -497,7 +497,7 @@ position = Vector2(-3.96018, 0)
 polygon = PackedVector2Array(19.9602, -1.33333, 25.2935, 0, 31.9602, 2.66667, 30.6269, 8, 23.9602, 10.6667, 16, 12, -8, 12, -9.37315, 8)
 
 [node name="Attack2Hitbox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack2Hitbox"]
@@ -505,7 +505,7 @@ position = Vector2(8, 0)
 polygon = PackedVector2Array(18.6667, 6.66667, 18.6667, 9.33333, 17.3333, 13.3333, 13.3333, 16, -1.33333, 17.3333, -14.6667, 17.3333, -24, 16, -33.3333, 12, -32, 8, -29.3333, 5.33333, -25.3333, 2.66667, -10.6667, 10.6667, 6.66667, 10.6667, 16, 4)
 
 [node name="Attack3Hitbox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack3Hitbox"]
@@ -514,3 +514,6 @@ polygon = PackedVector2Array(12, 12, 25.3333, 20, 32, 2.66667, 32, -12, 25.3333,
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="CollisionTimer" to="." method="_on_collision_timer_timeout"]
+[connection signal="area_entered" from="Attack1Hitbox" to="." method="_on_attack_hitbox_area_entered"]
+[connection signal="area_entered" from="Attack2Hitbox" to="." method="_on_attack_hitbox_area_entered"]
+[connection signal="area_entered" from="Attack3Hitbox" to="." method="_on_attack_hitbox_area_entered"]

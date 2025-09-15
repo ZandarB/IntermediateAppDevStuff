@@ -24,6 +24,11 @@ Global="*res://Scripts/global.gd"
 
 project/assembly_name="TileMap"
 
+[global_group]
+
+Player=""
+Enemy=""
+
 [input]
 
 left={
