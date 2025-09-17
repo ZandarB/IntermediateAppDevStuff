@@ -1,6 +1,5 @@
 extends Trap
 
 func _ready() -> void:
-	damage = 25
-	detect_delay = 1
-	super._ready()
+	damage = 10
+	damage_tickspeed = 1.0

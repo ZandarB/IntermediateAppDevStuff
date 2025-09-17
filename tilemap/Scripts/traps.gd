@@ -2,24 +2,20 @@ extends Area2D
 class_name Trap
 
 @export var damage: int = 10
-@export var detect_delay: float = 0.0  # optional delay before detection starts
+@export var damage_tickspeed: float = 0.0  
+
+var damage_cooldown = 0.0
 
 var ready_to_detect := false
 
 func _ready() -> void:
-	if detect_delay > 0:
-		await get_tree().create_timer(detect_delay).timeout
-		_enable_detection()
-	else:
-		_enable_detection()
+	damage_cooldown = damage_tickspeed
 
-func _enable_detection() -> void:
-	ready_to_detect = true
+func _physics_process(delta: float) -> void:
+	if (damage_tickspeed > 0.0):
+		damage_tickspeed -= delta
 
 func _on_body_entered(body: Node) -> void:
-	if not ready_to_detect:
-		return
-	
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and damage_tickspeed <= 0.0:
 		body.take_damage(damage)
-		print("Player hit a trap! Damage:", damage)
+		damage_tickspeed = damage_cooldown

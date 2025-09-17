@@ -70,7 +70,7 @@ animations = [{
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_335ol"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_arpa0"]
-radius = 12.6667
+radius = 11.1111
 
 [node name="SpinningBladeLeft" type="Area2D"]
 z_index = -1
@@ -91,8 +91,8 @@ physics_material_override = SubResource("PhysicsMaterial_335ol")
 scale = Vector2(0.875, 0.875)
 shape = SubResource("CircleShape2D_arpa0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.9, 0.9)
-shape = SubResource("CircleShape2D_arpa0")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-2, 0)
+polygon = PackedVector2Array(2.01162, 9.87967, 2, -10, -0.575321, -9.58893, -2.96978, -8.59291, -5.05235, -7.05362, -6.64124, -4.99123, -7.56075, -2.55676, -7.92843, 0.00680923, -7.56536, 2.593, -6.57516, 4.96645, -4.9727, 7.05268, -2.92427, 8.57955, -0.550812, 9.50929)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
