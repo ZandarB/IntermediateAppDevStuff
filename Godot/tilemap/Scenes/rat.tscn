@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://b5rh2etx16lsv"]
+[gd_scene load_steps=30 format=3 uid="uid://b5rh2etx16lsv"]
 
 [ext_resource type="Script" uid="uid://dkh3mblfb423g" path="res://Scripts/rat.gd" id="1_bya4l"]
 [ext_resource type="Shader" uid="uid://ccdm47sp20q61" path="res://enemy.gdshader" id="2_1v7x8"]
 [ext_resource type="Texture2D" uid="uid://dy2ukaal61bhw" path="res://Art/Enemys/Rat/Rat_Death.png" id="3_bya4l"]
 [ext_resource type="Texture2D" uid="uid://d25f0nj0q03bx" path="res://Art/Enemys/Rat/Rat_Hit.png" id="3_qaslg"]
 [ext_resource type="Texture2D" uid="uid://bcjgpfrqc27lc" path="res://Art/Enemys/Rat/Rat_Run.png" id="4_bya4l"]
+[ext_resource type="Texture2D" uid="uid://dgp6spsdltkr3" path="res://Art/Enemys/Rat/Rat_Idle.png" id="6_o2wta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0vde"]
 size = Vector2(12, 7)
@@ -74,6 +75,22 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("3_qaslg")
 region = Rect2(192, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jfyp"]
+atlas = ExtResource("6_o2wta")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rj3b"]
+atlas = ExtResource("6_o2wta")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55txs"]
+atlas = ExtResource("6_o2wta")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ca2q"]
+atlas = ExtResource("6_o2wta")
+region = Rect2(192, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_bihsd"]
 animations = [{
 "frames": [{
@@ -135,13 +152,30 @@ animations = [{
 "loop": false,
 "name": &"hit",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jfyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rj3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55txs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ca2q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bya4l"]
 size = Vector2(18, 18)
 
 [node name="Rat" type="Area2D"]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_bya4l")
 
@@ -150,6 +184,7 @@ position = Vector2(-2, -0.5)
 shape = SubResource("RectangleShape2D_p0vde")
 
 [node name="WallRay" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
 target_position = Vector2(15, 0)
 
 [node name="FloorRay" type="RayCast2D" parent="."]
@@ -160,7 +195,8 @@ target_position = Vector2(0, 20)
 material = SubResource("ShaderMaterial_bya4l")
 position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_bihsd")
-frame_progress = 0.601786
+animation = &"idle"
+frame_progress = 0.997465
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 collision_layer = 0

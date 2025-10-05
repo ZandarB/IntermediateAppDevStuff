@@ -256,10 +256,10 @@ shape = SubResource("CapsuleShape2D_4gyqm")
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_3yqyl")
-animation = &"attack"
+animation = &"idle"
+frame_progress = 0.115181
 
 [node name="WallRay" type="RayCast2D" parent="."]
-rotation = 3.14159
 target_position = Vector2(-15, 0)
 
 [node name="FloorRay" type="RayCast2D" parent="."]

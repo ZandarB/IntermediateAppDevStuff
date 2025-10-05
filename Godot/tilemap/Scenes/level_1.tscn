@@ -2163,7 +2163,7 @@ sources/3 = SubResource("TileSetAtlasSource_6r07y")
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("3_xfk5q")]
-position = Vector2(1518, 169)
+position = Vector2(1670, 172)
 slide_on_ceiling = false
 
 [node name="Level1Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
@@ -2252,7 +2252,7 @@ tile_set = SubResource("TileSet_6r07y")
 position = Vector2(1368, 186)
 
 [node name="Rat" parent="Enemys" groups=["Enemy"] instance=ExtResource("8_xrdnt")]
-position = Vector2(365, 55)
+position = Vector2(385, 61)
 
 [node name="Traps" type="Node" parent="."]
 
@@ -2346,6 +2346,7 @@ position = Vector2(1984, 207)
 [node name="MeltStuff" type="CanvasLayer" parent="."]
 
 [node name="Melt" parent="MeltStuff" instance=ExtResource("18_yltlr")]
+visible = false
 modulate = Color(0, 0, 0, 0.988235)
 top_level = true
 z_index = 1
@@ -2360,5 +2361,3 @@ texture = ExtResource("19_6ssoq")
 [node name="UI" parent="." instance=ExtResource("11_af3po")]
 
 [connection signal="body_entered" from="Level1Finish" to="Level1Finish" method="_on_body_entered"]
-[connection signal="enemy_died" from="Enemys/Slime" to="UI" method="_on_enemy_died"]
-[connection signal="enemy_died" from="Enemys/Rat" to="UI" method="_on_enemy_died"]

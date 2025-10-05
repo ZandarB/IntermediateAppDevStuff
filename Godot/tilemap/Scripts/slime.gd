@@ -1,83 +1,122 @@
 extends Enemy
 
-func _ready():
-	speed = 40
-	max_health = 5
-	score_value = 250
-	player_detection_radius = 15
-	super._ready()
-
-var chasing := false
-var player_in_attack_range := false
-
-var stop_distance := 1.0
- 
-var attack_cooldown := 2.0 
-var attack_timer := 0.0
-var is_attacking = false
-var attack_canceled = false
+enum State { PATROLLING, CHASING, ATTACKING, STUNNED, DEAD }
+var current_state = State.PATROLLING
 
 var target_player: Node2D = null
+var player_in_attack_range = false
+var is_attacking = false
+var stop_distance = 1.0
+var attack_cooldown = 0.0
+var attack_in_progress = false
 
-@onready var attack_hitbox = $AttackHitbox
+func _ready():
+	speed = 100
+	max_health = 3
+	score_value = 100 
+	player_detection_radius = 10
+	super._ready()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta):
 	if is_dead:
+		current_state = State.DEAD
 		return
+		
+	if attack_cooldown > 0.0:
+		attack_cooldown -= delta
 
-	if chasing and target_player:
-		chase_player(delta)
-	else:
-		super._physics_process(delta)
+	match current_state:
+		State.PATROLLING:
+			speed = 40
+			patrol(delta)
+		State.CHASING:
+			chase_player(delta)
+		State.ATTACKING:
+			attack()
+		State.STUNNED:
+			pass
+		State.DEAD:
+			pass
+
+func _on_player_detection_body_entered(body):
+	if body.is_in_group("Player") and !is_dead:
+		target_player = body
+		current_state = State.CHASING
+
+func _on_player_detection_body_exited(body):
+	if body.is_in_group("Player") and !is_dead:
+		target_player = null
+		current_state = State.PATROLLING
+
+func _on_attack_hitbox_body_entered(body):
+	if body.is_in_group("Player") and !is_dead and current_state != State.ATTACKING:
+		player_in_attack_range = true
+		current_state = State.ATTACKING
+
+func _on_attack_hitbox_body_exited(body):
+	if body.is_in_group("Player") and !is_dead:
+		player_in_attack_range = false
+		if current_state == State.ATTACKING:
+			current_state = State.CHASING
+
+func attack() -> void:
+	if attack_in_progress or is_dead or attack_cooldown > 0:
+		return
+	attack_in_progress = true
+	speed = 0
 	
-	if attack_timer > 0.0:
-		attack_timer -= delta
-	if hit_stun_time > 0.0:
-		hit_stun_time -= delta
+	$AnimatedSprite2D.play("idle")
+	await get_tree().create_timer(0.5).timeout 
+	
+	if player_in_attack_range and is_instance_valid(target_player):
+		$AnimatedSprite2D.play("attack")
+		$EffectAnimatedSprite2D.play("effect")
+		target_player.take_damage(1)
+		attack_cooldown = 1.5
+		
+	await get_tree().create_timer(1.0).timeout
+	
+	if is_dead:
+		attack_in_progress = false
+		return
+		
+	attack_in_progress = false
+	speed = 40
+	
+	if player_in_attack_range:
+		current_state = State.ATTACKING
+		$AnimatedSprite2D.play("idle")
+	elif target_player:
+		current_state = State.CHASING
+		$AnimatedSprite2D.play("default")
 
-	if player_in_attack_range and attack_timer <= 0.0 and hit_stun_time <= 0.0:
-		attack()
+	else:
+		current_state = State.PATROLLING
+		$AnimatedSprite2D.play("default")
+		
+	
+
 
 func on_hit():
 	if is_attacking:
-		attack_canceled = true 
 		is_attacking = false
-		speed = 40
-		$AnimatedSprite2D.play("default")
-
-func attack():
-	is_attacking = true
-	attack_canceled = false
-	chasing = false
-	
-	await get_tree().create_timer(0.5).timeout
-	speed = 0
-
-	$AnimatedSprite2D.play("attack")
-	$EffectAnimatedSprite2D.play("effect")
-	attack_timer = attack_cooldown
-	is_attacking = false
-	
-	if player_in_attack_range and is_instance_valid(target_player):
-		target_player.take_damage(1)
-	
-	await get_tree().create_timer(1.0).timeout
-	$AnimatedSprite2D.play("default")
-	speed = 40
-	
-	if is_instance_valid(target_player) and chasing == false and player_in_attack_range == false:
-		return
-	
-	if is_instance_valid(target_player):
-		chasing = true
+		current_state = State.STUNNED
+		speed = 0
+		$AnimatedSprite2D.play("hit")
+		if health <= 0:
+			is_dead = true
+			current_state = State.DEAD
+			$AnimatedSprite2D.play("dead")
+		else:
+			pass
 
 func chase_player(delta: float) -> void:
 	var distance_x = target_player.global_position.x - global_position.x
 	if abs(distance_x) > stop_distance:
 		var dir = sign(distance_x)
-
+		
 		super.flip_rays()
-
+		
 		if should_flip_direction():
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")
@@ -93,38 +132,3 @@ func chase_player(delta: float) -> void:
 		speed = 0
 		if $AnimatedSprite2D.animation != "idle":
 			$AnimatedSprite2D.play("idle")
-
-func _on_player_detection_body_entered(body: Node2D) -> void:
-	if is_dead:
-		return
-	if body.is_in_group("Player"):
-		target_player = body
-		chasing = true
-
-func _on_player_detection_body_exited(body: Node2D) -> void:
-	if is_dead:
-		return
-	if body.is_in_group("Player"):
-		target_player = null
-		chasing = false
-
-func _on_attack_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player") and is_dead == false:
-		player_in_attack_range = true
-		speed = 0
-		chasing = false
-
-func _on_attack_hitbox_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player") and is_dead == false:
-		player_in_attack_range = false
-		speed = 40
-		$AnimatedSprite2D.play("default")
-		$AnimatedSprite2D.flip_h = direction < 0
-		$PlayerDetection.scale.x = player_detection_radius / 2 * direction
-		$PlayerDetection.position.x = player_detection_radius * 4 * direction
-
-func _on_effect_animated_sprite_2d_animation_finished() -> void:
-	if player_in_attack_range == true and is_dead == false:
-		attack()
-	elif is_dead == false:
-		$EffectAnimatedSprite2D.play("default")

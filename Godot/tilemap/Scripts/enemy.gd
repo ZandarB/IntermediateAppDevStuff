@@ -15,8 +15,8 @@ var hit_stun_time := 0.0
 var direction := 1
 var vertical_offset: float = 1
 var attacking_area: Area2D = null
-
-signal enemy_died(score_amount: int)
+var dead_is_playing = false
+var allow_flipping = true
 
 
 func _ready() -> void:
@@ -28,8 +28,11 @@ func _ready() -> void:
 	$PlayerDetection.connect("body_exited", Callable(self, "_on_player_detection_body_exited"))
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
-		return
+	if is_dead && dead_is_playing == false:
+		$AnimatedSprite2D.play("dead")
+		dead_is_playing = true
+		
+		
 	flip_rays()
 	if hit_stun_time > 0:
 		hit_stun_time -= delta
@@ -37,20 +40,26 @@ func _physics_process(delta: float) -> void:
 		patrol(delta)
 
 func patrol(delta: float) -> void:
-	position.x += direction * speed * delta
+	if allow_flipping:
+		if should_flip_direction():
+			direction *= -1
+			$AnimatedSprite2D.flip_h = direction < 0
+			flip_rays()
+		position.x += direction * speed * delta
 
-	if should_flip_direction():
-		direction *= -1
-		$AnimatedSprite2D.flip_h = direction < 0
-		flip_rays()
 
 func should_flip_direction() -> bool:
-	return (not $FloorRay.is_colliding()) or $WallRay.is_colliding()
+	if allow_flipping:
+		return (not $FloorRay.is_colliding()) or $WallRay.is_colliding()
+	return false
+	
 
 func flip_rays() -> void:
 	$WallRay.position.x = abs($WallRay.position.x) * direction
 	$FloorRay.position.x = abs($FloorRay.position.x) * direction
 	
+	$WallRay.target_position.x = abs($WallRay.target_position.x) * direction
+
 	$PlayerDetection.scale.x = player_detection_radius / 2 * direction
 	$PlayerDetection.scale.y = player_detection_radius / 2 * direction
 	$PlayerDetection.position.x = player_detection_radius * 4 * direction
@@ -66,6 +75,7 @@ func apply_damage(amount: int) -> void:
 	on_hit()
 	
 	if health <= 0:
+		print("dead")
 		is_dead = true
 		$AnimatedSprite2D.play("dead")
 		speed = 0
@@ -82,6 +92,9 @@ func _play_hit_animation() -> void:
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.0)
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1).set_delay(0.2)
 	$AnimatedSprite2D.play("hit")
+	await get_tree().create_timer(0.8).timeout
+	if (health > 0):
+		$AnimatedSprite2D.play("default")
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if is_dead:
