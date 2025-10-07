@@ -58,22 +58,6 @@ region = Rect2(0, 64, 64, 64)
 atlas = ExtResource("3_f4si1")
 region = Rect2(64, 64, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xq7bh"]
-atlas = ExtResource("4_f4si1")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_10642"]
-atlas = ExtResource("4_f4si1")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uu7bc"]
-atlas = ExtResource("4_f4si1")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gqvs5"]
-atlas = ExtResource("4_f4si1")
-region = Rect2(192, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_f4si1"]
 atlas = ExtResource("4_paq7w")
 region = Rect2(0, 0, 64, 64)
@@ -104,6 +88,22 @@ region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c37lc"]
 atlas = ExtResource("7_r4o34")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq7bh"]
+atlas = ExtResource("4_f4si1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10642"]
+atlas = ExtResource("4_f4si1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu7bc"]
+atlas = ExtResource("4_f4si1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqvs5"]
+atlas = ExtResource("4_f4si1")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3yqyl"]
@@ -150,23 +150,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xq7bh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_10642")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uu7bc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gqvs5")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_f4si1")
 }, {
 "duration": 1.0,
@@ -197,6 +180,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq7bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10642")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uu7bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqvs5")
+}],
+"loop": true,
+"name": &"move",
 "speed": 5.0
 }]
 
@@ -256,8 +256,7 @@ shape = SubResource("CapsuleShape2D_4gyqm")
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_3yqyl")
-animation = &"idle"
-frame_progress = 0.115181
+animation = &"move"
 
 [node name="WallRay" type="RayCast2D" parent="."]
 target_position = Vector2(-15, 0)

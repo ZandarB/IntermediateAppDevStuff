@@ -56,8 +56,8 @@ func run_away(delta: float) -> void:
 
 	if hit_stun_time <= 0 and not is_dead:
 		if is_running_away:
-			if $AnimatedSprite2D.animation != "default":
-				$AnimatedSprite2D.play("default")
+			if $AnimatedSprite2D.animation != "move":
+				$AnimatedSprite2D.play("move")
 		else:
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")

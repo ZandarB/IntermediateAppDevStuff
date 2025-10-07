@@ -17,12 +17,12 @@ var vertical_offset: float = 1
 var attacking_area: Area2D = null
 var dead_is_playing = false
 var allow_flipping = true
-
+var iframes = false
 
 func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	health = max_health
-	$AnimatedSprite2D.play("default")
+	$AnimatedSprite2D.play("move")
 	flip_rays()
 	$PlayerDetection.connect("body_entered", Callable(self, "_on_player_detection_body_entered"))
 	$PlayerDetection.connect("body_exited", Callable(self, "_on_player_detection_body_exited"))
@@ -65,7 +65,7 @@ func flip_rays() -> void:
 	$PlayerDetection.position.x = player_detection_radius * 4 * direction
 
 func apply_damage(amount: int) -> void:
-	if is_dead:
+	if is_dead or iframes:
 		return
 
 	health -= amount
@@ -75,15 +75,8 @@ func apply_damage(amount: int) -> void:
 	on_hit()
 	
 	if health <= 0:
-		print("dead")
-		is_dead = true
-		$AnimatedSprite2D.play("dead")
-		speed = 0
-		var root = get_tree().get_current_scene()
-		var score_manager = root.get_node_or_null("UI")
-		if score_manager:
-			score_manager.update_score(score_value)
-
+		die()
+	
 func on_hit():
 	pass
 
@@ -94,7 +87,7 @@ func _play_hit_animation() -> void:
 	$AnimatedSprite2D.play("hit")
 	await get_tree().create_timer(0.8).timeout
 	if (health > 0):
-		$AnimatedSprite2D.play("default")
+		$AnimatedSprite2D.play("move")
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if is_dead:
@@ -105,3 +98,13 @@ func _on_player_detection_body_entered(body: Node2D) -> void:
 func _on_player_detection_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		pass
+	
+func die():
+	print("dead")
+	is_dead = true
+	$AnimatedSprite2D.play("dead")
+	speed = 0
+	var root = get_tree().get_current_scene()
+	var score_manager = root.get_node_or_null("UI")
+	if score_manager:
+		score_manager.update_score(score_value)

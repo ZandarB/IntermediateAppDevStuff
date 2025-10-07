@@ -71,7 +71,7 @@ func attack() -> void:
 	if player_in_attack_range and is_instance_valid(target_player):
 		$AnimatedSprite2D.play("attack")
 		$EffectAnimatedSprite2D.play("effect")
-		target_player.take_damage(1)
+		target_player.take_damage(10)
 		attack_cooldown = 1.5
 		
 	await get_tree().create_timer(1.0).timeout
@@ -88,11 +88,11 @@ func attack() -> void:
 		$AnimatedSprite2D.play("idle")
 	elif target_player:
 		current_state = State.CHASING
-		$AnimatedSprite2D.play("default")
+		$AnimatedSprite2D.play("move")
 
 	else:
 		current_state = State.PATROLLING
-		$AnimatedSprite2D.play("default")
+		$AnimatedSprite2D.play("move")
 		
 	
 
