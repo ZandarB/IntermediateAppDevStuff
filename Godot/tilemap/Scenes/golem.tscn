@@ -1021,21 +1021,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ext5f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8b4b2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_20bff")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p8fdn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wp7sr")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_uvdw0")
 }, {
 "duration": 1.0,
@@ -1103,6 +1088,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
 "speed": 5.0
 }]
 
@@ -1450,9 +1440,7 @@ shape = SubResource("RectangleShape2D_f4si1")
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_567pp")
-animation = &"attack3"
-frame = 4
-frame_progress = 1.0
+animation = &"new_animation"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -1464,9 +1452,7 @@ shape = SubResource("RectangleShape2D_f4si1")
 
 [node name="EffectAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5lrdn")
-animation = &"attack1"
-frame = 4
-frame_progress = 1.0
+animation = &"armoredAttack2"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_effect_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

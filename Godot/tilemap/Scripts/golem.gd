@@ -113,6 +113,9 @@ func attack() -> void:
 			$EffectAnimatedSprite2D.play(current_attack)
 		else:
 			current_attack = "attack%d" % atk_num
+			if current_attack == 1:
+				$AnimatedSprite2D.play("attackReset")
+				await $AnimatedSprite2D.animation_finished
 			$AnimatedSprite2D.play(current_attack)
 			$EffectAnimatedSprite2D.play(current_attack)
 	if not $AnimatedSprite2D.is_connected("frame_changed", Callable(self, "_on_attack_frame_changed")):
@@ -128,7 +131,7 @@ func _on_attack_frame_changed():
 	var frame = $AnimatedSprite2D.frame
 	if frame in attack_damage_frames[current_attack] and frame != last_damage_frame and !attack_hit_already:
 		if player_in_attack_range and is_instance_valid(target_player):
-			#target_player.take_damage(20)
+			target_player.take_damage(1)
 			last_damage_frame = frame
 			attack_hit_already = true
 
@@ -210,5 +213,7 @@ func _play_hit_animation() -> void:
 	
 	await get_tree().create_timer(0.8).timeout
 	
-	if health > 0:
+	if health > 0 and armour_broken:
 		$AnimatedSprite2D.play("move")
+	elif health > 0 and !armour_broken:
+		$AnimatedSprite2D.play("armoredMove")
