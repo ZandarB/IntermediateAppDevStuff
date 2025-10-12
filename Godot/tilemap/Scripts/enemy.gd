@@ -31,13 +31,12 @@ func _physics_process(delta: float) -> void:
 	if is_dead && dead_is_playing == false:
 		$AnimatedSprite2D.play("dead")
 		dead_is_playing = true
-		
-		
+
 	flip_rays()
-	if hit_stun_time > 0:
-		hit_stun_time -= delta
-	else:
-		patrol(delta)
+	if hit_stun_time > 0.0 or iframes:
+		hit_stun_time = max(hit_stun_time - delta, 0)
+		speed = 0
+		return
 
 func patrol(delta: float) -> void:
 	if allow_flipping:

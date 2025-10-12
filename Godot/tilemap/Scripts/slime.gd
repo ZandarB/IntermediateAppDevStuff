@@ -57,6 +57,7 @@ func _on_attack_hitbox_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
 		player_in_attack_range = false
 		if current_state == State.ATTACKING:
+			await get_tree().create_timer(0.5).timeout
 			current_state = State.CHASING
 
 func attack() -> void:

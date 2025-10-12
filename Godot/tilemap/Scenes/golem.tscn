@@ -1,4 +1,4 @@
-[gd_scene load_steps=209 format=3 uid="uid://bsb0nphi1xnh4"]
+[gd_scene load_steps=204 format=3 uid="uid://bsb0nphi1xnh4"]
 
 [ext_resource type="Script" uid="uid://dn0ram6pawck3" path="res://Scripts/golem.gd" id="1_1vj27"]
 [ext_resource type="Shader" uid="uid://ccdm47sp20q61" path="res://enemy.gdshader" id="2_jtyfx"]
@@ -229,18 +229,6 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("8_s6gu0")
 region = Rect2(0, 64, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jl4i"]
-atlas = ExtResource("8_s6gu0")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_04vsf"]
-atlas = ExtResource("8_s6gu0")
-region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ra1g"]
-atlas = ExtResource("8_s6gu0")
-region = Rect2(192, 64, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv0c4"]
 atlas = ExtResource("9_sr4wm")
 region = Rect2(0, 0, 64, 64)
@@ -284,10 +272,6 @@ region = Rect2(64, 128, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_umbtg"]
 atlas = ExtResource("9_sr4wm")
 region = Rect2(128, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x66n5"]
-atlas = ExtResource("9_sr4wm")
-region = Rect2(192, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_26frs"]
 atlas = ExtResource("10_ks78l")
@@ -412,10 +396,6 @@ region = Rect2(64, 64, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ti44f"]
 atlas = ExtResource("13_cich2")
 region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hgel6"]
-atlas = ExtResource("13_cich2")
-region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_newbf"]
 atlas = ExtResource("14_2xv12")
@@ -758,15 +738,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0tqga")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5jl4i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_04vsf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1ra1g")
 }],
 "loop": false,
 "name": &"armourBreak",
@@ -805,9 +776,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_umbtg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x66n5")
 }],
 "loop": false,
 "name": &"armourRegen",
@@ -850,7 +818,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xnb0g")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1",
 "speed": 5.0
 }, {
@@ -921,11 +889,8 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ti44f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hgel6")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackReset",
 "speed": 5.0
 }, {
@@ -1088,11 +1053,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"move",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
 "speed": 5.0
 }]
 
@@ -1284,7 +1244,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"armoredAttack1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1440,7 +1400,7 @@ shape = SubResource("RectangleShape2D_f4si1")
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_567pp")
-animation = &"new_animation"
+animation = &"armourBreak"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -1452,7 +1412,9 @@ shape = SubResource("RectangleShape2D_f4si1")
 
 [node name="EffectAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5lrdn")
-animation = &"armoredAttack2"
+animation = &"attack1"
+frame = 4
+frame_progress = 1.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_effect_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
