@@ -69,6 +69,7 @@ func _physics_process(delta):
 			pass
 		State.UPGRADING:
 			pass
+			
 func _on_player_detection_body_entered(body):
 	if body.is_in_group("Player") and !is_dead:
 		target_player = body
@@ -151,17 +152,23 @@ func attack() -> void:
 			$AnimatedSprite2D.play("armoredMove")
 
 func _on_attack_frame_changed():
+	var projectile_attack = preload("res://Scenes/golem_projectile_attack.tscn").instantiate()
+	var ground_attack =  preload("res://Scenes/golem_ground_attack.tscn").instantiate()
 	if current_attack == "":
 		return
 	var frame = $AnimatedSprite2D.frame
 	if frame in attack_damage_frames[current_attack] and frame != last_damage_frame and !attack_hit_already:
-		if player_in_attack_range and is_instance_valid(target_player):
-			target_player.take_damage(1)
-			last_damage_frame = frame
-			attack_hit_already = true
-			$EffectAnimatedSprite2D.play(current_attack)
-			await $EffectAnimatedSprite2D.animation_finished
-			$EffectAnimatedSprite2D.play("default")
+		if current_attack == "armoredAttack3":
+			get_tree().current_scene.add_child(projectile_attack)
+	
+	
+		#if player_in_attack_range and is_instance_valid(target_player):
+		#	target_player.take_damage(1)
+		#	last_damage_frame = frame
+		#	attack_hit_already = true
+		#	$EffectAnimatedSprite2D.play(current_attack)
+		#	await $EffectAnimatedSprite2D.animation_finished
+		#	$EffectAnimatedSprite2D.play("default")
 
 func on_hit():
 	if !iframes:

@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://deiu44f8ktx5t"]
+
+[ext_resource type="Script" uid="uid://cn4f3dvxrwmuu" path="res://Scripts/golem_projectile_attack.gd" id="1_bghwy"]
+[ext_resource type="Texture2D" uid="uid://dyseibqqubb7x" path="res://Art/Enemys/Golem/Armored/Golem_Armor_AttackC_FX.png" id="1_nnryq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jl4i"]
+atlas = ExtResource("1_nnryq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04vsf"]
+atlas = ExtResource("1_nnryq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ra1g"]
+atlas = ExtResource("1_nnryq")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bghwy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jl4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04vsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ra1g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhhr4"]
+size = Vector2(15, 3)
+
+[node name="ProjectileAttack" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_bghwy")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bghwy")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -1.5)
+shape = SubResource("RectangleShape2D_jhhr4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

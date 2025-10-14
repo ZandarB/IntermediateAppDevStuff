@@ -24,8 +24,6 @@ func _ready() -> void:
 	health = max_health
 	$AnimatedSprite2D.play("move")
 	flip_rays()
-	$PlayerDetection.connect("body_entered", Callable(self, "_on_player_detection_body_entered"))
-	$PlayerDetection.connect("body_exited", Callable(self, "_on_player_detection_body_exited"))
 
 func _physics_process(delta: float) -> void:
 	if is_dead && dead_is_playing == false:

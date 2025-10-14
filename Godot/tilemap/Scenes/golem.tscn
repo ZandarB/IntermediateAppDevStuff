@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=3 uid="uid://bsb0nphi1xnh4"]
+[gd_scene load_steps=190 format=3 uid="uid://bsb0nphi1xnh4"]
 
 [ext_resource type="Script" uid="uid://dn0ram6pawck3" path="res://Scripts/golem.gd" id="1_1vj27"]
 [ext_resource type="Shader" uid="uid://ccdm47sp20q61" path="res://enemy.gdshader" id="2_jtyfx"]
@@ -21,11 +21,9 @@
 [ext_resource type="Texture2D" uid="uid://c71fcsm8hcsr3" path="res://Art/Enemys/Golem/No Armor/Golem_IdleA.png" id="17_080x1"]
 [ext_resource type="Texture2D" uid="uid://11c7i20j2ow7" path="res://Art/Enemys/Golem/No Armor/Golem_IdleB.png" id="18_h4lq5"]
 [ext_resource type="Texture2D" uid="uid://br385vaci4a8m" path="res://Art/Enemys/Golem/No Armor/Golem_Run.png" id="19_1j1nh"]
-[ext_resource type="Texture2D" uid="uid://beu85nnoe423a" path="res://Art/Enemys/Golem/Armored/Golem_Armor_AttackA_FX.png" id="20_ks78l"]
 [ext_resource type="Texture2D" uid="uid://flmda11qvjvh" path="res://Art/Enemys/Golem/No Armor/Golem_AttackA_FX.png" id="20_u6v8k"]
 [ext_resource type="Texture2D" uid="uid://c2oqkfva414ua" path="res://Art/Enemys/Golem/Armored/Golem_Armor_AttackB_FX.png" id="21_1vj27"]
 [ext_resource type="Texture2D" uid="uid://47i8sxmr5nrc" path="res://Art/Enemys/Golem/No Armor/Golem_AttackB_FX.png" id="21_s6gu0"]
-[ext_resource type="Texture2D" uid="uid://dyseibqqubb7x" path="res://Art/Enemys/Golem/Armored/Golem_Armor_AttackC_FX.png" id="22_leecd"]
 [ext_resource type="Texture2D" uid="uid://dsbgxxnjbjiyb" path="res://Art/Enemys/Golem/No Armor/Golem_AttackC_FX.png" id="22_sr4wm"]
 [ext_resource type="Texture2D" uid="uid://c4gaf5m1avfkr" path="res://Art/Enemys/Golem/No Armor/Golem_Death_FX.png" id="23_ks78l"]
 
@@ -34,7 +32,7 @@ radius = 8.0
 height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4si1"]
-size = Vector2(28, 27)
+size = Vector2(81, 69)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gyqm"]
 shader = ExtResource("2_jtyfx")
@@ -1056,42 +1054,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mijth"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7kdur"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_snmfs"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qc21q"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jk0ol"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8twnq"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8rmi"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(0, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtsu7"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(64, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i61eo"]
-atlas = ExtResource("20_ks78l")
-region = Rect2(128, 128, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_jcjdv"]
 atlas = ExtResource("21_1vj27")
 region = Rect2(0, 0, 64, 64)
@@ -1115,18 +1077,6 @@ region = Rect2(64, 64, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tkl13"]
 atlas = ExtResource("21_1vj27")
 region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hoj3l"]
-atlas = ExtResource("22_leecd")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nll4t"]
-atlas = ExtResource("22_leecd")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxc33"]
-atlas = ExtResource("22_leecd")
-region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vj27"]
 atlas = ExtResource("20_u6v8k")
@@ -1216,38 +1166,6 @@ region = Rect2(64, 64, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mijth")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7kdur")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_snmfs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qc21q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jk0ol")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8twnq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8rmi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wtsu7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i61eo")
-}],
-"loop": false,
-"name": &"armoredAttack1",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_jcjdv")
 }, {
 "duration": 1.0,
@@ -1266,21 +1184,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_tkl13")
 }],
 "loop": false,
-"name": &"armoredAttack2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hoj3l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nll4t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xxc33")
-}],
-"loop": false,
-"name": &"armoredAttack3",
+"name": &"armoredAttackPunch",
 "speed": 5.0
 }, {
 "frames": [{
@@ -1370,6 +1274,11 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"new_animation",
+"speed": 10.0
 }]
 
 [node name="Golem" type="Area2D" groups=["Enemy"]]
@@ -1393,29 +1302,28 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_f4si1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_567pp")
-animation = &"armourBreak"
+animation = &"armoredAttack3"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
-position = Vector2(0, -7.5)
+scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_f4si1")
 
 [node name="EffectAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_5lrdn")
-animation = &"attack1"
-frame = 4
-frame_progress = 1.0
+animation = &"armoredAttackPunch"
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_effect_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
 [connection signal="body_exited" from="AttackHitbox" to="." method="_on_attack_hitbox_body_exited"]
