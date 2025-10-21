@@ -5,14 +5,16 @@ var current_state = State.PATROLLING
 
 var target_player: Node2D = null
 var player_in_attack_range = false
-var is_attacking = false
+var attack_in_progress = false
 var stop_distance = 1.0
 var attack_cooldown = 0.0
-var attack_in_progress = false
-var health_threshold = 10
+var health_threshold = 3
 var armour_broken = false
 var armour_regen_time = 10.0
 var upgrading_in_progress = false
+var stun_duration = 0.0
+
+
 
 var last_damage_frame = -1
 var attack_damage_frames = {
@@ -30,7 +32,7 @@ var regeneration_in_progress = false
 
 func _ready():
 	speed = 50
-	max_health = 20
+	max_health = 6
 	score_value = 1000
 	player_detection_radius = 15
 	
@@ -42,13 +44,14 @@ func _ready():
 		$AnimatedSprite2D.play("armoredMove")
 
 func _physics_process(delta):
-	
 	if is_dead:
 		current_state = State.DEAD
 		return
 		
 	if attack_cooldown > 0.0:
 		attack_cooldown -= delta
+	if stun_duration > 0.0:
+		stun_duration -= delta
 	match current_state:
 		State.PATROLLING:
 			if armour_broken:
@@ -68,7 +71,10 @@ func _physics_process(delta):
 		State.DEAD:
 			pass
 		State.UPGRADING:
-			pass
+			if upgrading_in_progress:
+				pass
+			else:
+				armourBreak()
 			
 func _on_player_detection_body_entered(body):
 	if body.is_in_group("Player") and !is_dead:
@@ -82,109 +88,76 @@ func _on_player_detection_body_exited(body):
 
 func _on_attack_hitbox_body_entered(body):
 	if body.is_in_group("Player") and !is_dead and current_state != State.ATTACKING:
-		player_in_attack_range = true
-		current_state = State.ATTACKING
+		if target_player.has_method("is_on_floor") and target_player.is_on_floor():
+			player_in_attack_range = true
+			current_state = State.ATTACKING
 
 func _on_attack_hitbox_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
 		player_in_attack_range = false
-		if current_state == State.ATTACKING:
-			current_state = State.CHASING
+
 
 func attack() -> void:
-	if attack_in_progress or is_dead or attack_cooldown > 0.0 or current_state == State.UPGRADING:
+	if attack_in_progress or is_dead or attack_cooldown > 0.0 or current_state != State.ATTACKING:
 		return
-
+	
 	attack_in_progress = true
-	is_attacking = true
 	speed = 0
 	last_damage_frame = -1
 	attack_hit_already = false
-	
-	if !player_in_attack_range or !is_instance_valid(target_player):
-		attack_in_progress = false
-		is_attacking = false
-		current_state = State.CHASING
-		return
-	
+
 	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var atk_num = rng.randi_range(1, 3)
-	
 	if armour_broken:
-		if current_attack == "attack1":
-			$AnimatedSprite2D.play("attackReset")
-			await $AnimatedSprite2D.animation_finished
-		current_attack = "attack%d" % atk_num
-		$AnimatedSprite2D.play(current_attack)
+		current_attack = "attack1"
+	else:
+		current_attack = "armoredAttack1"
+
+	if has_method(current_attack):
+		await call_deferred(current_attack)
 		await $AnimatedSprite2D.animation_finished
-	else:
-		current_attack = "armoredAttack%d" % atk_num
-		$AnimatedSprite2D.play(current_attack)
-
-	if not $AnimatedSprite2D.is_connected("frame_changed", Callable(self, "_on_attack_frame_changed")):
-		$AnimatedSprite2D.connect("frame_changed", Callable(self, "_on_attack_frame_changed"))
-
-	while $AnimatedSprite2D.is_playing():
-		await get_tree().process_frame
-		if !player_in_attack_range or !is_instance_valid(target_player):
-			if armour_broken:
-				$AnimatedSprite2D.play("move")
-			else:
-				$AnimatedSprite2D.play("armoredMove")
-
-			
-			current_state = State.CHASING
-			break
-
-	attack_in_progress = false
-	is_attacking = false
-	attack_cooldown = 2.0
-	if armour_broken:
-		speed = 100
-	else:
-		speed = 50
-	
-	if !attack_in_progress:
+		attack_in_progress = false
+		attack_cooldown = 3.0
 		if armour_broken:
-			$AnimatedSprite2D.play("move")
+			speed = 100
 		else:
-			$AnimatedSprite2D.play("armoredMove")
+			speed = 50
+		if target_player != null and is_instance_valid(target_player):
+			print("here")
+			if player_in_attack_range:
+				current_state = State.ATTACKING
+			else:
+				current_state = State.CHASING
+				if armour_broken:
+					$AnimatedSprite2D.play("move")
+				else:
+					$AnimatedSprite2D.play("armoredMove")
+		else:
+			current_state = State.PATROLLING
 
+		
 func _on_attack_frame_changed():
+	var frame = $AnimatedSprite2D.frame
 	var projectile_attack = preload("res://Scenes/golem_projectile_attack.tscn").instantiate()
 	var ground_attack =  preload("res://Scenes/golem_ground_attack.tscn").instantiate()
 	if current_attack == "":
 		return
-	var frame = $AnimatedSprite2D.frame
 	if frame in attack_damage_frames[current_attack] and frame != last_damage_frame and !attack_hit_already:
 		if current_attack == "armoredAttack3":
 			get_tree().current_scene.add_child(projectile_attack)
-	
-	
-		#if player_in_attack_range and is_instance_valid(target_player):
-		#	target_player.take_damage(1)
-		#	last_damage_frame = frame
-		#	attack_hit_already = true
-		#	$EffectAnimatedSprite2D.play(current_attack)
-		#	await $EffectAnimatedSprite2D.animation_finished
-		#	$EffectAnimatedSprite2D.play("default")
 
 func on_hit():
 	if !iframes:
-		if is_attacking:
-			is_attacking = false
-			current_state = State.STUNNED
-			speed = 0
+		stun_duration = 0.8
+		speed = 0
+		current_state = State.STUNNED
+		
+		if attack_in_progress:
+			attack_in_progress = false
 
 		if health <= health_threshold and !armour_broken:
-			speed = 0
 			iframes = true
 			print("Upgrading")
-			upgrading_in_progress = true
 			current_state = State.UPGRADING
-			armourBreak()
-		
 
 func _play_hit_animation() -> void:
 	if iframes or current_state == State.UPGRADING or is_dead or upgrading_in_progress:
@@ -197,8 +170,7 @@ func _play_hit_animation() -> void:
 	if armour_broken:
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
-		var hit_num = rng.randi_range(1, 2)
-		$AnimatedSprite2D.play("hit%d" % hit_num)
+		$AnimatedSprite2D.play("hit2")
 	else:
 		$AnimatedSprite2D.play("armoredHit")
 	
@@ -207,43 +179,38 @@ func _play_hit_animation() -> void:
 	if health > 0 and armour_broken:
 		$AnimatedSprite2D.play("move")
 	elif health > 0 and !armour_broken:
-		print("Got here")
 		$AnimatedSprite2D.play("armoredMove")
 
 func chase_player(delta: float) -> void:
-	var distance_x = target_player.global_position.x - global_position.x
-	if abs(distance_x) > stop_distance:
-		var dir = sign(distance_x)
-		
-		super.flip_rays()
-		
-		if should_flip_direction():
+	if target_player != null:
+		var distance_x = target_player.global_position.x - global_position.x
+		if abs(distance_x) > stop_distance:
+			var dir = sign(distance_x)
+			
+			super.flip_rays()
+			
+			if should_flip_direction():
+				if armour_broken:
+					if $AnimatedSprite2D.animation != "move":
+						$AnimatedSprite2D.play("move")
+				else:
+					if $AnimatedSprite2D.animation != "armoredMove":
+						$AnimatedSprite2D.play("armoredMove")
+				speed = 0
+			else:
+				direction = dir
+				position.x += direction * speed * delta
+				$AnimatedSprite2D.flip_h = direction < 0
+				$PlayerDetection.position.x = player_detection_radius * 4 * direction
+				$PlayerDetection.scale.x = player_detection_radius / 2 * direction
+		else:
+			speed = 0
 			if armour_broken:
 				if $AnimatedSprite2D.animation != "move":
 					$AnimatedSprite2D.play("move")
 			else:
 				if $AnimatedSprite2D.animation != "armoredMove":
 					$AnimatedSprite2D.play("armoredMove")
-			speed = 0
-		else:
-			if armour_broken:
-				speed =  100
-			else:
-				speed = 50
-				
-			direction = dir
-			position.x += direction * speed * delta
-			$AnimatedSprite2D.flip_h = direction < 0
-			$PlayerDetection.position.x = player_detection_radius * 4 * direction
-			$PlayerDetection.scale.x = player_detection_radius / 2 * direction
-	else:
-		speed = 0
-		if armour_broken:
-			if $AnimatedSprite2D.animation != "move":
-				$AnimatedSprite2D.play("move")
-		else:
-			if $AnimatedSprite2D.animation != "armoredMove":
-				$AnimatedSprite2D.play("armoredMove")
 
 func armourBreak():
 	armour_broken = true
@@ -263,15 +230,14 @@ func armourBreak():
 	iframes = false
 	upgrading_in_progress = false
 	attack_in_progress = false
-	is_attacking = false
 	current_attack = ""
 	attack_hit_already = false
 
 	# Reset speed & state
 	speed = 100
 	current_state = State.CHASING
+	upgrading_in_progress = false
 	
-
 func regenerate():
 	print("regenning")
 	regeneration_in_progress = true
@@ -281,7 +247,6 @@ func regenerate():
 	iframes = true
 
 	attack_in_progress = false
-	is_attacking = false
 	current_attack = ""
 	attack_hit_already = false
 
@@ -305,24 +270,61 @@ func regenerate():
 		current_state = State.PATROLLING
 		print ("patrolling")
 
-
-func _update_attack_hitbox():
-	var hitbox_shape = $AttackHitbox/CollisionShape2D.shape
-
-	match current_attack:
-		"attack1", "armoredAttack1":
-			# Normal melee swipe — short range
-			$AttackHitbox.scale = Vector2(1.5, 3.0)
-
-		"attack2", "armoredAttack2":
-			# Ground AOE — wider and lower
-			hitbox_shape.extents = Vector2(40, 10)
-			$AttackHitbox.position = Vector2(0, 15)
-
-		"attack3", "armoredAttack3":
-			# Blast — disable melee hitbox, projectile handles this
-			$AttackHitbox.monitoring = false
-			#spawn_projectile()
-
 func stun():
-	$EffectAnimatedSprite2D.play("default")
+	if stun_duration <= 0.0:
+		if current_state == State.STUNNED and !is_dead and !upgrading_in_progress:
+			current_state = State.CHASING
+			if armour_broken:
+				speed = 100
+			else:
+				speed = 50
+
+func armoredAttack1() -> void:
+	if not is_instance_valid(target_player):
+		current_state = State.PATROLLING
+		attack_in_progress = false
+		return
+
+	var ground_attack_scene = preload("res://Scenes/golem_ground_attack.tscn")
+	var ground_attack = ground_attack_scene.instantiate()
+
+	var start_pos = target_player.global_position
+	var end_pos = start_pos + Vector2(0, 1000)  # cast downward
+
+	# Use PhysicsRayQueryParameters2D
+	var ray_params = PhysicsRayQueryParameters2D.new()
+	ray_params.from = start_pos
+	ray_params.to = end_pos
+	ray_params.exclude = [self, target_player]
+
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(ray_params)
+
+	if result:
+		ground_attack.global_position = result.position
+	else:
+		ground_attack.global_position = start_pos + Vector2(0, 50)
+
+	get_tree().current_scene.add_child(ground_attack)
+
+	await get_tree().create_timer(0.5).timeout
+	$AnimatedSprite2D.play("armoredAttack1")
+	
+func attack1() -> void:
+	if is_instance_valid(target_player):
+		var ground_attack_scene = preload("res://Scenes/golem_ground_attack.tscn")
+		var ground_attack = ground_attack_scene.instantiate()
+		var spawn_y = target_player.global_position.y
+		
+		if target_player.has_method("is_on_floor") and target_player.is_on_floor() and player_in_attack_range:
+			spawn_y = target_player.global_position.y
+		else:
+			current_state = State.CHASING
+			attack_in_progress = false
+			return
+
+		ground_attack.global_position = Vector2(target_player.global_position.x, spawn_y)
+		get_tree().current_scene.add_child(ground_attack)
+
+		await get_tree().create_timer(0.5).timeout
+		$AnimatedSprite2D.play("attack1")
