@@ -40,10 +40,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_bghwy")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bghwy")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -1.5)
 shape = SubResource("RectangleShape2D_jhhr4")
 

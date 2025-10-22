@@ -94,9 +94,6 @@ func attack() -> void:
 	else:
 		current_state = State.PATROLLING
 		$AnimatedSprite2D.play("move")
-		
-	
-
 
 func on_hit():
 	if is_attacking:

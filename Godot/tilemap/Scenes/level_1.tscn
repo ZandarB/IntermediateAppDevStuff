@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://ic1o33gr07s0"]
+[gd_scene load_steps=24 format=4 uid="uid://ic1o33gr07s0"]
 
 [ext_resource type="TileSet" uid="uid://mh13nmfjnj08" path="res://collision.tres" id="1_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bgunhbue8a3t4" path="res://Art/Tileset/OutdoorTileset1.png" id="1_vk57k"]
@@ -12,8 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dmjsnks4xt0cv" path="res://Scenes/coin.tscn" id="9_wrinw"]
 [ext_resource type="PackedScene" uid="uid://bmbqmkib2d122" path="res://Scenes/diamond.tscn" id="10_chwpn"]
 [ext_resource type="PackedScene" uid="uid://cilg2ef7d4apf" path="res://Scenes/ui.tscn" id="11_af3po"]
-[ext_resource type="PackedScene" uid="uid://bsb0nphi1xnh4" path="res://Scenes/golem.tscn" id="12_pjppf"]
-[ext_resource type="PackedScene" uid="uid://deiu44f8ktx5t" path="res://Scenes/golem_projectile_attack.tscn" id="13_yltlr"]
 [ext_resource type="PackedScene" uid="uid://cv7l052y5gm5d" path="res://Scenes/spike.tscn" id="15_oovug"]
 [ext_resource type="PackedScene" uid="uid://cpiva3m63bav1" path="res://Scenes/spinning_blade_left.tscn" id="16_8i23i"]
 [ext_resource type="PackedScene" uid="uid://bgsiqol35o8it" path="res://Scenes/spinning_blade_right.tscn" id="17_8yhm2"]
@@ -2165,7 +2163,7 @@ sources/3 = SubResource("TileSetAtlasSource_6r07y")
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("3_xfk5q")]
-position = Vector2(3276, 490)
+position = Vector2(116, 38)
 slide_on_ceiling = false
 
 [node name="Level1Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
@@ -2255,12 +2253,6 @@ position = Vector2(1368, 186)
 
 [node name="Rat" parent="Enemys" groups=["Enemy"] instance=ExtResource("8_xrdnt")]
 position = Vector2(385, 61)
-
-[node name="Golem" parent="Enemys" instance=ExtResource("12_pjppf")]
-position = Vector2(2686, 506)
-
-[node name="ProjectileAttack" parent="Enemys" instance=ExtResource("13_yltlr")]
-position = Vector2(3565, 440)
 
 [node name="Traps" type="Node" parent="."]
 

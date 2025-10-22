@@ -58,7 +58,6 @@ func flip_rays() -> void:
 	$WallRay.target_position.x = abs($WallRay.target_position.x) * direction
 
 	$PlayerDetection.scale.x = player_detection_radius / 2 * direction
-	$PlayerDetection.scale.y = player_detection_radius / 2 * direction
 	$PlayerDetection.position.x = player_detection_radius * 4 * direction
 
 func apply_damage(amount: int) -> void:
@@ -82,9 +81,10 @@ func _play_hit_animation() -> void:
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.0)
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1).set_delay(0.2)
 	$AnimatedSprite2D.play("hit")
-	await get_tree().create_timer(0.8).timeout
-	if (health > 0):
+	await get_tree().create_timer(hit_stun_time).timeout
+	if health > 0:
 		$AnimatedSprite2D.play("move")
+
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if is_dead:

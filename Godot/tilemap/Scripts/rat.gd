@@ -2,7 +2,10 @@ extends Enemy
 
 var target_player: Node2D = null
 var player_in_range = false
+enum State { IDLE, PATROLLING, RUNNING_AWAY }
+var state: State = State.PATROLLING
 var is_running_away = false
+
 
 func _ready():
 	speed = 100
@@ -12,52 +15,53 @@ func _ready():
 	super._ready()
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
-		super._physics_process(delta)
+	if hit_stun_time > 0.0:
+		hit_stun_time = max(hit_stun_time - delta, 0)
 		return
-	if player_in_range == true:
-		run_away(delta)
-	else:
-		super._physics_process(delta)
+	print(state)
+	match state:
+		State.PATROLLING:
+			patrol(delta) 
+		State.RUNNING_AWAY:
+			run_away(delta)
+		State.IDLE:
+			if $AnimatedSprite2D.animation != "idle":
+				$AnimatedSprite2D.play("idle")
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
-	if is_dead:
-		return
-	else:
-		target_player = body
-		player_in_range = true
-		
-func _on_player_detection_body_exited(body: Node2D) -> void:
-	if is_dead:
-		return
+	if is_dead: return
 	if body.is_in_group("Player"):
-		print("I can't see the player")
-		
+		target_player = body
+		state = State.RUNNING_AWAY
+
+func _on_player_detection_body_exited(body: Node2D) -> void:
+	if is_dead: return
+	if body.is_in_group("Player"):
+		target_player = null
+		state = State.PATROLLING
+
 func run_away(delta: float) -> void:
 	allow_flipping = false
 	if not is_instance_valid(target_player):
-		is_running_away = false
+		state = State.PATROLLING
+		allow_flipping = true
 		return
-
 	var distance_x = target_player.global_position.x - global_position.x
-	var to_player = sign(distance_x)
-	direction = -to_player
-
-	var no_floor_ahead = not $FloorRay.is_colliding()
-
-	if no_floor_ahead:
-		is_running_away = false
-	else:
-		is_running_away = true
-		position.x += direction * speed * delta
-		
+	direction = -sign(distance_x) 
+	if not $FloorRay.is_colliding():
+		state = State.PATROLLING
+		allow_flipping = true
+		return
+	position.x += direction * speed * delta
 	$AnimatedSprite2D.flip_h = direction < 0
+	if $AnimatedSprite2D.animation != "move":
+		$AnimatedSprite2D.play("move")
 	super.flip_rays()
 
-	if hit_stun_time <= 0 and not is_dead:
-		if is_running_away:
-			if $AnimatedSprite2D.animation != "move":
-				$AnimatedSprite2D.play("move")
-		else:
-			if $AnimatedSprite2D.animation != "idle":
-				$AnimatedSprite2D.play("idle")
+func on_hit():
+	speed = 0
+	await $AnimatedSprite2D.animation_finished
+	if health <= 0:
+		is_dead = true
+	else:
+		speed = 100

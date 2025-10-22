@@ -8,14 +8,11 @@ var player_in_attack_range = false
 var attack_in_progress = false
 var stop_distance = 1.0
 var attack_cooldown = 0.0
-var health_threshold = 3
+var health_threshold = 10
 var armour_broken = false
 var armour_regen_time = 10.0
 var upgrading_in_progress = false
 var stun_duration = 0.0
-
-
-
 var last_damage_frame = -1
 var attack_damage_frames = {
 	"attack1": [5, 6, 7, 8, 9],
@@ -32,7 +29,7 @@ var regeneration_in_progress = false
 
 func _ready():
 	speed = 50
-	max_health = 6
+	max_health = 20
 	score_value = 1000
 	player_detection_radius = 15
 	
@@ -88,9 +85,8 @@ func _on_player_detection_body_exited(body):
 
 func _on_attack_hitbox_body_entered(body):
 	if body.is_in_group("Player") and !is_dead and current_state != State.ATTACKING:
-		if target_player.has_method("is_on_floor") and target_player.is_on_floor():
-			player_in_attack_range = true
-			current_state = State.ATTACKING
+		player_in_attack_range = true
+		current_state = State.ATTACKING
 
 func _on_attack_hitbox_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
@@ -116,13 +112,12 @@ func attack() -> void:
 		await call_deferred(current_attack)
 		await $AnimatedSprite2D.animation_finished
 		attack_in_progress = false
-		attack_cooldown = 3.0
+		attack_cooldown = 2.0
 		if armour_broken:
 			speed = 100
 		else:
 			speed = 50
 		if target_player != null and is_instance_valid(target_player):
-			print("here")
 			if player_in_attack_range:
 				current_state = State.ATTACKING
 			else:
@@ -158,6 +153,10 @@ func on_hit():
 			iframes = true
 			print("Upgrading")
 			current_state = State.UPGRADING
+		if health <= 0:
+			is_dead = true
+			die()
+		
 
 func _play_hit_animation() -> void:
 	if iframes or current_state == State.UPGRADING or is_dead or upgrading_in_progress:
@@ -185,26 +184,19 @@ func chase_player(delta: float) -> void:
 	if target_player != null:
 		var distance_x = target_player.global_position.x - global_position.x
 		if abs(distance_x) > stop_distance:
-			var dir = sign(distance_x)
-			
-			super.flip_rays()
-			
-			if should_flip_direction():
-				if armour_broken:
-					if $AnimatedSprite2D.animation != "move":
-						$AnimatedSprite2D.play("move")
-				else:
-					if $AnimatedSprite2D.animation != "armoredMove":
-						$AnimatedSprite2D.play("armoredMove")
-				speed = 0
-			else:
-				direction = dir
-				position.x += direction * speed * delta
+			var new_direction = sign(distance_x)
+			if direction != new_direction:
+				direction = new_direction
 				$AnimatedSprite2D.flip_h = direction < 0
-				$PlayerDetection.position.x = player_detection_radius * 4 * direction
-				$PlayerDetection.scale.x = player_detection_radius / 2 * direction
+				flip_rays()
+			position.x += direction * speed * delta
+			if armour_broken:
+				if $AnimatedSprite2D.animation != "move":
+					$AnimatedSprite2D.play("move")
+			else:
+				if $AnimatedSprite2D.animation != "armoredMove":
+					$AnimatedSprite2D.play("armoredMove")
 		else:
-			speed = 0
 			if armour_broken:
 				if $AnimatedSprite2D.animation != "move":
 					$AnimatedSprite2D.play("move")
@@ -235,8 +227,13 @@ func armourBreak():
 
 	# Reset speed & state
 	speed = 100
-	current_state = State.CHASING
+	if player_in_attack_range:
+		current_state = State.ATTACKING
+	else:
+		current_state = State.CHASING
+	
 	upgrading_in_progress = false
+	
 	
 func regenerate():
 	print("regenning")
@@ -273,11 +270,15 @@ func regenerate():
 func stun():
 	if stun_duration <= 0.0:
 		if current_state == State.STUNNED and !is_dead and !upgrading_in_progress:
-			current_state = State.CHASING
+			if player_in_attack_range:
+				current_state = State.ATTACKING
+			else:
+				current_state = State.CHASING
 			if armour_broken:
 				speed = 100
 			else:
 				speed = 50
+				
 
 func armoredAttack1() -> void:
 	if not is_instance_valid(target_player):
@@ -289,9 +290,8 @@ func armoredAttack1() -> void:
 	var ground_attack = ground_attack_scene.instantiate()
 
 	var start_pos = target_player.global_position
-	var end_pos = start_pos + Vector2(0, 1000)  # cast downward
+	var end_pos = start_pos + Vector2(0, 1000) 
 
-	# Use PhysicsRayQueryParameters2D
 	var ray_params = PhysicsRayQueryParameters2D.new()
 	ray_params.from = start_pos
 	ray_params.to = end_pos
@@ -306,25 +306,36 @@ func armoredAttack1() -> void:
 		ground_attack.global_position = start_pos + Vector2(0, 50)
 
 	get_tree().current_scene.add_child(ground_attack)
-
-	await get_tree().create_timer(0.5).timeout
 	$AnimatedSprite2D.play("armoredAttack1")
 	
 func attack1() -> void:
-	if is_instance_valid(target_player):
-		var ground_attack_scene = preload("res://Scenes/golem_ground_attack.tscn")
-		var ground_attack = ground_attack_scene.instantiate()
-		var spawn_y = target_player.global_position.y
-		
-		if target_player.has_method("is_on_floor") and target_player.is_on_floor() and player_in_attack_range:
-			spawn_y = target_player.global_position.y
-		else:
-			current_state = State.CHASING
-			attack_in_progress = false
-			return
+	if not is_instance_valid(target_player):
+		current_state = State.PATROLLING
+		attack_in_progress = false
+		return
 
-		ground_attack.global_position = Vector2(target_player.global_position.x, spawn_y)
-		get_tree().current_scene.add_child(ground_attack)
+	var ground_attack_scene = preload("res://Scenes/golem_ground_attack.tscn")
+	var ground_attack = ground_attack_scene.instantiate()
 
-		await get_tree().create_timer(0.5).timeout
-		$AnimatedSprite2D.play("attack1")
+	var start_pos = target_player.global_position
+	var end_pos = start_pos + Vector2(0, 1000) 
+
+	var ray_params = PhysicsRayQueryParameters2D.new()
+	ray_params.from = start_pos
+	ray_params.to = end_pos
+	ray_params.exclude = [self, target_player]
+
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(ray_params)
+
+	if result:
+		ground_attack.global_position = result.position
+	else:
+		ground_attack.global_position = start_pos + Vector2(0, 50)
+
+	get_tree().current_scene.add_child(ground_attack)
+	$AnimatedSprite2D.play("attack1")
+	await $AnimatedSprite2D.animation_finished
+	$AnimatedSprite2D.play("attackReset")
+	await $AnimatedSprite2D.animation_finished
+	attack_in_progress = false

@@ -1080,15 +1080,15 @@ shape = SubResource("RectangleShape2D_f4si1")
 material = SubResource("ShaderMaterial_4gyqm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_567pp")
-animation = &"armoredMove"
-frame_progress = 0.758467
+animation = &"dead"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
-position = Vector2(0, -23)
+position = Vector2(0, 3)
+scale = Vector2(2.5, 0.05)
 shape = SubResource("RectangleShape2D_f4si1")
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
