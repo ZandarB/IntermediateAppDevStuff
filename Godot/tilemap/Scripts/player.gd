@@ -147,6 +147,8 @@ func attack():
 			$AnimatedSprite2D.play("attack3")
 
 func take_damage (damage: int):
+	if Global.health <= 0:
+		return
 	Global.health -= damage
 	var root = get_tree().get_current_scene()
 	var health_manager = root.get_node_or_null("UI")
@@ -156,7 +158,12 @@ func take_damage (damage: int):
 	speed = 0
 	stun_timer = stun_time
 	attacking = false
-	direction_x = 0   
+	direction_x = 0  
+	
+	if Global.health <= 0:
+		var death_menu_scene = load("res://Scenes/death_menu.tscn")
+		var death_menu_instance = death_menu_scene.instantiate()
+		get_tree().get_current_scene().add_child(death_menu_instance)
 
 func _on_attack_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Enemy"):

@@ -12,7 +12,6 @@ func _ready():
 		healthLabel = $Health
 
 
-
 func update_score(amount: int) -> void:
 	Global.score += amount
 	scoreLabel.text = "Score: " + str(Global.score)

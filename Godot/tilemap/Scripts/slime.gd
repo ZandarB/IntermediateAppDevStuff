@@ -18,6 +18,7 @@ func _ready():
 	super._ready()
 
 func _physics_process(delta):
+	print(current_state)
 	if is_dead:
 		current_state = State.DEAD
 		return
@@ -45,7 +46,9 @@ func _on_player_detection_body_entered(body):
 
 func _on_player_detection_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
+		print("got here")
 		target_player = null
+		speed = 100
 		current_state = State.PATROLLING
 
 func _on_attack_hitbox_body_entered(body):
@@ -85,11 +88,13 @@ func attack() -> void:
 
 	if player_in_attack_range:
 		current_state = State.ATTACKING
+		$AnimatedSprite2D.play("idle")
 	elif target_player != null:
 		current_state = State.CHASING
+		$AnimatedSprite2D.play("move")
 	else:
 		current_state = State.PATROLLING
-	$AnimatedSprite2D.play("move")
+		$AnimatedSprite2D.play("move")
 func on_hit():
 	if is_attacking:
 		is_attacking = false
@@ -113,7 +118,7 @@ func chase_player(delta: float) -> void:
 		if should_flip_direction():
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")
-			speed = 0
+				speed = 0
 		else:
 			speed = 40
 			direction = dir

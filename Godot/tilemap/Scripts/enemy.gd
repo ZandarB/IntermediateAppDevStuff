@@ -58,6 +58,7 @@ func flip_rays() -> void:
 	$WallRay.target_position.x = abs($WallRay.target_position.x) * direction
 
 	$PlayerDetection.scale.x = player_detection_radius / 2 * direction
+	$PlayerDetection.scale.y = player_detection_radius / 2 * direction
 	$PlayerDetection.position.x = player_detection_radius * 4 * direction
 
 func apply_damage(amount: int) -> void:

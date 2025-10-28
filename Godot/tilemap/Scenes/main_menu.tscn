@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://voumfh3wj1ln"]
+
+[ext_resource type="Script" uid="uid://l0i2cneo5oe2" path="res://Scripts/play.gd" id="1_28flt"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = 360.0
+offset_right = 49.0
+offset_bottom = -257.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+script = ExtResource("1_28flt")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.5
+offset_top = -11.5
+offset_right = 127.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Name here (There is none)"
+
+[connection signal="button_down" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_button_down"]
