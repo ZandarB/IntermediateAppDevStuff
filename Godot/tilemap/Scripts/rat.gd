@@ -15,13 +15,18 @@ func _ready():
 	super._ready()
 
 func _physics_process(delta: float) -> void:
+	if state == State.RUNNING_AWAY:
+		allow_flipping = false
+	else:
+		allow_flipping = true
+
 	if hit_stun_time > 0.0:
 		hit_stun_time = max(hit_stun_time - delta, 0)
 		return
-	print(state)
+
 	match state:
 		State.PATROLLING:
-			patrol(delta) 
+			patrol(delta)
 		State.RUNNING_AWAY:
 			run_away(delta)
 		State.IDLE:
@@ -39,25 +44,37 @@ func _on_player_detection_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		target_player = null
 		state = State.PATROLLING
+		$PlayerDetection.position.x = abs($PlayerDetection.position.x)
+		speed = 100
 
 func run_away(delta: float) -> void:
-	allow_flipping = false
 	if not is_instance_valid(target_player):
 		state = State.PATROLLING
-		allow_flipping = true
 		return
-	var distance_x = target_player.global_position.x - global_position.x
-	direction = -sign(distance_x) 
-	if not $FloorRay.is_colliding():
-		state = State.PATROLLING
-		allow_flipping = true
-		return
-	position.x += direction * speed * delta
-	$AnimatedSprite2D.flip_h = direction < 0
-	if $AnimatedSprite2D.animation != "move":
-		$AnimatedSprite2D.play("move")
-	super.flip_rays()
 
+	var distance_x = target_player.global_position.x - global_position.x
+	direction = -sign(distance_x)
+
+	if $FloorRay.is_colliding():
+		# Move away from player
+		speed = 100
+		position.x += direction * speed * delta
+
+		# Flip sprite while moving
+		$AnimatedSprite2D.flip_h = direction < 0
+		
+		# Move detection **behind** the enemy
+		$PlayerDetection.position.x = -abs($PlayerDetection.position.x) * direction
+		$FloorRay.position.x = abs($FloorRay.position.x) * direction
+
+		if $AnimatedSprite2D.animation != "move":
+			$AnimatedSprite2D.play("move")
+	else:
+		# Stop at edge and prevent flipping
+		speed = 0
+		if $AnimatedSprite2D.animation != "idle":
+			$AnimatedSprite2D.play("idle")
+		
 func on_hit():
 	speed = 0
 	await $AnimatedSprite2D.animation_finished

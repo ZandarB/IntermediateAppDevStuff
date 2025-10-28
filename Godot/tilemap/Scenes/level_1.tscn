@@ -2163,7 +2163,7 @@ sources/3 = SubResource("TileSetAtlasSource_6r07y")
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("3_xfk5q")]
-position = Vector2(116, 38)
+position = Vector2(561, 21)
 slide_on_ceiling = false
 
 [node name="Level1Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]

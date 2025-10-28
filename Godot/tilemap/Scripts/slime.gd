@@ -56,45 +56,40 @@ func _on_attack_hitbox_body_entered(body):
 func _on_attack_hitbox_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
 		player_in_attack_range = false
-		if current_state == State.ATTACKING:
-			await get_tree().create_timer(0.5).timeout
-			current_state = State.CHASING
+
 
 func attack() -> void:
 	if attack_in_progress or is_dead or attack_cooldown > 0:
 		return
+
 	attack_in_progress = true
 	speed = 0
-	
-	$AnimatedSprite2D.play("idle")
-	await get_tree().create_timer(0.5).timeout 
-	
-	if player_in_attack_range and is_instance_valid(target_player):
-		$AnimatedSprite2D.play("attack")
-		$EffectAnimatedSprite2D.play("effect")
-		target_player.take_damage(10)
-		attack_cooldown = 1.5
-		
+
+
+	$AnimatedSprite2D.play("attack")
+	if player_in_attack_range and target_player != null:
+		if target_player.has_method("take_damage"):
+			target_player.take_damage(10)
+			$EffectAnimatedSprite2D.play("effect")
+			attack_cooldown = 1.5
+
+	# Wait for attack animation to finish
 	await get_tree().create_timer(1.0).timeout
-	
+
 	if is_dead:
 		attack_in_progress = false
 		return
-		
+
 	attack_in_progress = false
 	speed = 40
-	
+
 	if player_in_attack_range:
 		current_state = State.ATTACKING
-		$AnimatedSprite2D.play("idle")
-	elif target_player:
+	elif target_player != null:
 		current_state = State.CHASING
-		$AnimatedSprite2D.play("move")
-
 	else:
 		current_state = State.PATROLLING
-		$AnimatedSprite2D.play("move")
-
+	$AnimatedSprite2D.play("move")
 func on_hit():
 	if is_attacking:
 		is_attacking = false
