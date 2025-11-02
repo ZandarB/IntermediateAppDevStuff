@@ -3,6 +3,7 @@ extends Area2D
 @export var rise_distance: float = 25
 @export var rise_time: float = 0.5
 @export var fall_time: float = 0.5
+var target_player: Node2D = null
 
 var original_position: Vector2
 
@@ -24,3 +25,8 @@ func spawn_attack() -> void:
 	await tween.finished
 
 	queue_free()
+
+func _on_body_entered(body: Node2D) -> void:
+	target_player = body
+	if target_player.has_method("take_damage"):
+		target_player.take_damage(10)

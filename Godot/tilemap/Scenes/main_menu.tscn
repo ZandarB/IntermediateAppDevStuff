@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://voumfh3wj1ln"]
+[gd_scene load_steps=4 format=3 uid="uid://voumfh3wj1ln"]
 
 [ext_resource type="Script" uid="uid://l0i2cneo5oe2" path="res://Scripts/play.gd" id="1_28flt"]
+[ext_resource type="Script" uid="uid://dqpxnxwcflgtm" path="res://Scripts/menutocontrolsbutton.gd" id="2_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://cvxlvvgoaqapi" path="res://background.jpg" id="2_48xlc"]
 
 [node name="MainMenu" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="Play" type="Button" parent="CanvasLayer"]
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -19,6 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play"
 script = ExtResource("1_28flt")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
@@ -33,5 +36,29 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Game Name here (There is none)"
+metadata/_edit_use_anchors_ = true
 
-[connection signal="button_down" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_button_down"]
+[node name="Controls" type="Button" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = 401.0
+offset_right = 50.0
+offset_bottom = -216.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls
+"
+script = ExtResource("2_1ehe0")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_48xlc")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="button_down" from="CanvasLayer/Play" to="CanvasLayer/Play" method="_on_button_down"]
+[connection signal="button_down" from="CanvasLayer/Controls" to="CanvasLayer/Controls" method="_on_button_down"]

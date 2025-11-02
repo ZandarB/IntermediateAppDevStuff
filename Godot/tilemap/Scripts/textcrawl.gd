@@ -3,8 +3,15 @@ extends Label
 var currentScene = ""
 var nextScene = ""
 
-var text1 = "Story Stuff Here"
-var text2 = "Story2 Stuff Here"
+var text1 = "I was gonna do a story here, but I couldn't think of one, so its a mini dev-log. 
+All the 3 levels I made are the sum of 2 levels each save for level 3. 
+Anyway I like DOOM so thats where the screen melt comes from, and this story read too. 
+Don't know why I did this it was probably a waste of time, looks cool thought. Anyway, next level is some dungeon crawling. Good Luck!"
+var text2 = "It's ya boy, back again with another mini dev-log, this next level is the most unique and probably the most difficult by a long shot.
+Probably a bit too difficult if you ask me, mostly because of parkour, but you can retry if you die anyway. 
+I thought it was fun to build and learn how to do, but it might be different having to play through the whole level again if you die.
+And a new enemy at the end ooooh exciting
+Anyway, enjoy climbing the tower of hell (name is forever a work in progress, tower of babel is probably better so go with that)."
 
 var is_scrolling = false
 var full_text = ""

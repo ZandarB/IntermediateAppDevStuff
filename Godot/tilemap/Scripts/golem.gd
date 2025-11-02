@@ -31,7 +31,7 @@ func _ready():
 	speed = 50
 	max_health = 20
 	score_value = 1000
-	player_detection_radius = 15
+	player_detection_radius = 5
 	
 	super._ready()
 	
@@ -141,6 +141,8 @@ func _on_attack_frame_changed():
 			get_tree().current_scene.add_child(projectile_attack)
 
 func on_hit():
+	if is_dead:
+		return
 	if !iframes:
 		stun_duration = 0.8
 		speed = 0
@@ -236,6 +238,8 @@ func armourBreak():
 	
 	
 func regenerate():
+	if is_dead:
+		return
 	print("regenning")
 	regeneration_in_progress = true
 	armour_regen_time = 10.0

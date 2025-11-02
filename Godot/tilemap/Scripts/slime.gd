@@ -12,13 +12,13 @@ var attack_in_progress = false
 
 func _ready():
 	speed = 100
-	max_health = 3
+	max_health = 5
 	score_value = 100 
 	player_detection_radius = 10
 	super._ready()
 
 func _physics_process(delta):
-	print(current_state)
+	print(health)
 	if is_dead:
 		current_state = State.DEAD
 		return

@@ -161,6 +161,7 @@ func take_damage (damage: int):
 	direction_x = 0  
 	
 	if Global.health <= 0:
+		await get_tree().create_timer(1.0).timeout
 		var death_menu_scene = load("res://Scenes/death_menu.tscn")
 		var death_menu_instance = death_menu_scene.instantiate()
 		get_tree().get_current_scene().add_child(death_menu_instance)

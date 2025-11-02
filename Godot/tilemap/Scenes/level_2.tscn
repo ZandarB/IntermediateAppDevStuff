@@ -509,7 +509,7 @@ sources/2 = SubResource("TileSetAtlasSource_5rvg2")
 [node name="Level2" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("3_v36qu")]
-position = Vector2(48, 38)
+position = Vector2(851, 639)
 collision_layer = 2
 
 [node name="Level2Finish" type="Area2D" parent="." node_paths=PackedStringArray("melt", "background")]
@@ -519,7 +519,7 @@ collision_mask = 2
 script = ExtResource("2_42uki")
 melt = NodePath("../MeltStuff/Melt")
 background = NodePath("../MeltStuff/Background")
-next_scene_path = "res://Scenes/level_3.tscn"
+next_scene_path = "res://Scenes/intermediary_scene.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level2Finish"]
 position = Vector2(2, 2)
@@ -581,6 +581,18 @@ position = Vector2(465, 98)
 [node name="Coin9" parent="Pickups" instance=ExtResource("9_fhuy1")]
 position = Vector2(529, 100)
 
+[node name="Coin10" parent="Pickups" instance=ExtResource("9_fhuy1")]
+position = Vector2(879, 511)
+
+[node name="Coin11" parent="Pickups" instance=ExtResource("9_fhuy1")]
+position = Vector2(1094, 496)
+
+[node name="Coin12" parent="Pickups" instance=ExtResource("9_fhuy1")]
+position = Vector2(926, 660)
+
+[node name="Coin13" parent="Pickups" instance=ExtResource("9_fhuy1")]
+position = Vector2(850, 642)
+
 [node name="MeltStuff" type="CanvasLayer" parent="."]
 
 [node name="Melt" parent="MeltStuff" instance=ExtResource("11_ait6c")]
@@ -626,7 +638,7 @@ rotation = 1.5708
 position = Vector2(952, 424)
 
 [node name="SpinningBlade2" parent="Traps/SpinningBlades" instance=ExtResource("13_vcilj")]
-position = Vector2(1016, 488)
+position = Vector2(1010, 477)
 
 [node name="SpinningBlade3" parent="Traps/SpinningBlades" instance=ExtResource("13_vcilj")]
 position = Vector2(1080, 440)
@@ -750,7 +762,7 @@ position = Vector2(115, 125)
 position = Vector2(251, 349)
 
 [node name="Slime" parent="Enemys" instance=ExtResource("16_hj5x7")]
-position = Vector2(1000, 554)
+position = Vector2(1154, 538)
 
 [node name="Slime2" parent="Enemys" instance=ExtResource("16_hj5x7")]
 position = Vector2(583, 74)
