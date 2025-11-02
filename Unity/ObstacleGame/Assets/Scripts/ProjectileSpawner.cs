@@ -6,7 +6,7 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform player;
-    float spawnInterval = 2f;
+    float spawnInterval = 0.5f;
     float timer = 0f;
 
     Vector3 playerPosition;
