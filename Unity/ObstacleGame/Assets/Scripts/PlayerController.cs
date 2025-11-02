@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//int playerHealth = 100;
 public class PlayerMovement : MonoBehaviour
 {   
     [SerializeField] float moveSpeed = 10f;
