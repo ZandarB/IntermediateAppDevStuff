@@ -2,35 +2,19 @@ using UnityEngine;
 
 public class ProjectileAtPlayer : MonoBehaviour
 {
-    [SerializeField] float speed = 1.0f;
-    [SerializeField] Transform player;
-    Vector3 playerPosition;
-    
-    void Awake() 
+    [SerializeField] float speed = 20f;
+    private Vector3 targetPosition;
+
+    public void SetTargetPosition(Vector3 position)
     {
-        gameObject.SetActive(false);
-    }
-    
-    void Start()
-    {
-        playerPosition = player.transform.position;
+        targetPosition = position;
     }
 
     void Update()
     {
-        MoveToPlayer();
-        DestroyWhenReached();
-    }
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-    void MoveToPlayer()
-    {
-        transform.position = 
-        Vector3.MoveTowards(transform.position, playerPosition, Time.deltaTime * speed);
-    }
-
-    void DestroyWhenReached()
-    {
-        if (transform.position == playerPosition)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
             Destroy(gameObject);
         }

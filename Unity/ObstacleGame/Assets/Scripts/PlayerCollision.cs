@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag != "Hit")
         {
-            collisionCount++;
-            Debug.Log($"Player has collided with an object {collisionCount} times.");
+
+
         }        
     }
 }
