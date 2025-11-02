@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {   
     [SerializeField] float moveSpeed = 10f;
     public int maxHealth = 100;
     public int health;
-    [SerializeField] public TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI healthText;
 
     void Start()
     {
@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(health);
         MovePlayer();
     }
 
