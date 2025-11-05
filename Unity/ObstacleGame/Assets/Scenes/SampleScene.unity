@@ -3371,7 +3371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSpawner
   projectilePrefab: {fileID: 7230576664140778172, guid: 3f5f8057216d69146817780d16843732, type: 3}
   spawnPoint: {fileID: 1701960480}
-  player: {fileID: 0}
+  player: {fileID: 3947190003783838172}
 --- !u!4 &2023058311
 Transform:
   m_ObjectHideFlags: 0
@@ -3864,7 +3864,11 @@ PrefabInstance:
     - target: {fileID: 6529844168507622121, guid: ac400b4867d1a344d86bf1cc324d838b, type: 3}
       propertyPath: healthText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 539282273}
+    - target: {fileID: 6529844168507622121, guid: ac400b4867d1a344d86bf1cc324d838b, type: 3}
+      propertyPath: healthTextObject
+      value: 
+      objectReference: {fileID: 802081649}
     - target: {fileID: 8005614008073255335, guid: ac400b4867d1a344d86bf1cc324d838b, type: 3}
       propertyPath: m_Name
       value: Player

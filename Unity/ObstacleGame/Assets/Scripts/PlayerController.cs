@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        healthText = healthTextObject.GetComponent<TextMeshProUGUI>();
         healthText.text = health.ToString();
     }
 

@@ -8,12 +8,11 @@ public class ProjectileAtPlayer : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<PlayerController>();
+        player = FindFirstObjectByType<PlayerController>();
     }
     public void SetTargetPosition(Vector3 position)
     {
-       
-        targetPosition = position;
+        targetPosition = new Vector3(position.x, transform.position.y, position.z);
     }
 
     void Update()
@@ -27,22 +26,6 @@ public class ProjectileAtPlayer : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        //    if (collision.gameObject.CompareTag("Player") && !hasHit)
-        //    {
-        //        if (player != null)
-        //        {
-        //            Debug.Log("hello");
-        //            player.TakeDamage(10);
-        //        }
-        //        hasHit = true;
-
-        //        Destroy(gameObject); 
-        //    }
-        //    else
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //}
         if (collision.gameObject.CompareTag("Player"))
         {
             player.TakeDamage(10);
