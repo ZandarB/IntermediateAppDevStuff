@@ -6,8 +6,13 @@ public class ProjectileAtPlayer : MonoBehaviour
     private Vector3 targetPosition;
     [SerializeField] PlayerController player;
 
+    private void Start()
+    {
+        player = GetComponent<PlayerController>();
+    }
     public void SetTargetPosition(Vector3 position)
     {
+       
         targetPosition = position;
     }
 
@@ -22,14 +27,27 @@ public class ProjectileAtPlayer : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        //    if (collision.gameObject.CompareTag("Player") && !hasHit)
+        //    {
+        //        if (player != null)
+        //        {
+        //            Debug.Log("hello");
+        //            player.TakeDamage(10);
+        //        }
+        //        hasHit = true;
+
+        //        Destroy(gameObject); 
+        //    }
+        //    else
+        //    {
+        //        Destroy(gameObject);
+        //    }
+        //}
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (player != null)
-            {
-                player.TakeDamage(10);
-            }
+            player.TakeDamage(10);
 
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
         else
         {

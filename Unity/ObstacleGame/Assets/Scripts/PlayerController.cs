@@ -2,20 +2,20 @@ using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{   
+{
     [SerializeField] float moveSpeed = 10f;
-    public int maxHealth = 100;
-    public int health;
-    [SerializeField] private TextMeshProUGUI healthText;
+    public static int health = 100;
+    public GameObject healthTextObject;
+    public TextMeshProUGUI healthText;
 
     void Start()
     {
-        health = maxHealth;
+        healthText = healthTextObject.GetComponent<TextMeshProUGUI>();
+        healthText.text = health.ToString();
     }
 
     void Update()
     {
-        Debug.Log(health);
         MovePlayer();
     }
 
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthText.text = ($"Health: " + health);
+        Debug.Log(health);
+        healthText.text = $"Health: {health}";
     }
 }

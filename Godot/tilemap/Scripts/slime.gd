@@ -18,7 +18,6 @@ func _ready():
 	super._ready()
 
 func _physics_process(delta):
-	print(health)
 	if is_dead:
 		current_state = State.DEAD
 		return
@@ -46,7 +45,6 @@ func _on_player_detection_body_entered(body):
 
 func _on_player_detection_body_exited(body):
 	if body.is_in_group("Player") and !is_dead:
-		print("got here")
 		target_player = null
 		speed = 100
 		current_state = State.PATROLLING

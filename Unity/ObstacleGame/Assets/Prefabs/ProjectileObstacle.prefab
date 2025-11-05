@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3884795128506950092}
   - component: {fileID: 3732046640692511638}
   - component: {fileID: 449939765219888543}
-  - component: {fileID: 2925728430602080662}
   m_Layer: 0
   m_Name: ProjectileObstacle
   m_TagString: Untagged
@@ -127,15 +126,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   player: {fileID: 6529844168507622121, guid: ac400b4867d1a344d86bf1cc324d838b, type: 3}
---- !u!114 &2925728430602080662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7230576664140778172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae4055bc45188c4c837d34ff95c0509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

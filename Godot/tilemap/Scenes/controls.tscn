@@ -24,14 +24,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_left = 0.339844
+anchor_left = 0.179254
 anchor_top = 0.500772
 anchor_right = 0.179254
 anchor_bottom = 0.500772
-offset_left = 121.5
-offset_top = -299.5
-offset_right = 376.5
-offset_bottom = -276.5
+offset_left = 295.499
+offset_top = -298.5
+offset_right = 550.499
+offset_bottom = -275.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -51,13 +51,13 @@ offset_bottom = -81.5002
 grow_horizontal = 2
 grow_vertical = 2
 text = "A and D, Left arrow and Right Arrow: Your normal left and right movement keys for a 2D platformer
+S and Down arrow: Used to drop down through floors. But not everything can be dropped through. 
 SPACE: Jump (You can also double jump)
 Left Click: Attack (Randomly Chooses one of 3 attacks, all with different hitboxes. So be aware of that"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_ejwpf")
