@@ -29,12 +29,7 @@ public class ProjectileAtPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player.TakeDamage(10);
-
-            Destroy(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
-}
+} 

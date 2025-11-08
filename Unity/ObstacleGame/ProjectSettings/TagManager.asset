@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Hit
   - Projectile
+  - Ground
+  - Spinner
+  - Trigger
   layers:
   - Default
   - TransparentFX

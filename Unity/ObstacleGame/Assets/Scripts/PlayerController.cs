@@ -1,21 +1,23 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
-    public static int health = 100;
+    public int health = 100;
     public GameObject healthTextObject;
     public TextMeshProUGUI healthText;
-
-    void Start()
-    {
-        healthText.text = health.ToString();
-    }
-
+    public bool isDead = false;
+    
     void Update()
     {
         MovePlayer();
+        if (health <= 0 && isDead == false)
+        {
+            isDead = true;
+        }
     }
 
     void MovePlayer()
@@ -27,9 +29,17 @@ public class PlayerController : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
-    {
-        health -= damage;
-        Debug.Log(health);
-        healthText.text = $"Health: {health}";
+    {   
+        if (health <= 0)
+        {
+            return;
+        }
+        else
+        {
+            health -= damage;
+            Debug.Log(health);
+            healthText.text = $"Health: {health}";
+        }
+
     }
 }

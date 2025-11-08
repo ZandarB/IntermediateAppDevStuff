@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3732046640692511638}
   - component: {fileID: 449939765219888543}
   m_Layer: 0
-  m_Name: ProjectileObstacle
+  m_Name: AimedProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c99702c1480d184eaef570b142f2fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   player: {fileID: 6529844168507622121, guid: ac400b4867d1a344d86bf1cc324d838b, type: 3}
