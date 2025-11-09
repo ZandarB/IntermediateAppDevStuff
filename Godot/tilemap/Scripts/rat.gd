@@ -2,7 +2,7 @@ extends Enemy
 
 var target_player: Node2D = null
 var player_in_range = false
-enum State { IDLE, PATROLLING, RUNNING_AWAY }
+enum State { IDLE, PATROLLING, RUNNING_AWAY, DEAD }
 var state: State = State.PATROLLING
 var is_running_away = false
 
@@ -32,6 +32,8 @@ func _physics_process(delta: float) -> void:
 		State.IDLE:
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")
+		State.DEAD:
+			pass
 
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if is_dead: return
@@ -48,6 +50,8 @@ func _on_player_detection_body_exited(body: Node2D) -> void:
 		speed = 100
 
 func run_away(delta: float) -> void:
+	if is_dead:
+		return
 	if not is_instance_valid(target_player):
 		state = State.PATROLLING
 		return
@@ -76,9 +80,12 @@ func run_away(delta: float) -> void:
 			$AnimatedSprite2D.play("idle")
 		
 func on_hit():
+	if is_dead:
+		return
 	speed = 0
 	await $AnimatedSprite2D.animation_finished
 	if health <= 0:
 		is_dead = true
+		state = State.DEAD
 	else:
 		speed = 100

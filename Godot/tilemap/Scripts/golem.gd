@@ -131,6 +131,8 @@ func attack() -> void:
 
 		
 func _on_attack_frame_changed():
+	if is_dead:
+		return
 	var frame = $AnimatedSprite2D.frame
 	var projectile_attack = preload("res://Scenes/golem_projectile_attack.tscn").instantiate()
 	var ground_attack =  preload("res://Scenes/golem_ground_attack.tscn").instantiate()
@@ -183,6 +185,8 @@ func _play_hit_animation() -> void:
 		$AnimatedSprite2D.play("armoredMove")
 
 func chase_player(delta: float) -> void:
+	if is_dead:
+		return
 	if target_player != null:
 		var distance_x = target_player.global_position.x - global_position.x
 		if abs(distance_x) > stop_distance:
@@ -207,6 +211,8 @@ func chase_player(delta: float) -> void:
 					$AnimatedSprite2D.play("armoredMove")
 
 func armourBreak():
+	if is_dead:
+		return
 	armour_broken = true
 	upgrading_in_progress = true
 	iframes = true
@@ -272,6 +278,8 @@ func regenerate():
 		print ("patrolling")
 
 func stun():
+	if is_dead:
+		return
 	if stun_duration <= 0.0:
 		if current_state == State.STUNNED and !is_dead and !upgrading_in_progress:
 			if player_in_attack_range:
@@ -285,6 +293,8 @@ func stun():
 				
 
 func armoredAttack1() -> void:
+	if is_dead:
+		return
 	if not is_instance_valid(target_player):
 		current_state = State.PATROLLING
 		attack_in_progress = false
@@ -313,6 +323,8 @@ func armoredAttack1() -> void:
 	$AnimatedSprite2D.play("armoredAttack1")
 	
 func attack1() -> void:
+	if is_dead:
+		return
 	if not is_instance_valid(target_player):
 		current_state = State.PATROLLING
 		attack_in_progress = false
@@ -340,6 +352,8 @@ func attack1() -> void:
 	get_tree().current_scene.add_child(ground_attack)
 	$AnimatedSprite2D.play("attack1")
 	await $AnimatedSprite2D.animation_finished
+	if is_dead:
+		return
 	$AnimatedSprite2D.play("attackReset")
 	await $AnimatedSprite2D.animation_finished
 	attack_in_progress = false

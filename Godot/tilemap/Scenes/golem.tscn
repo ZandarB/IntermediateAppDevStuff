@@ -27,7 +27,7 @@ radius = 8.0
 height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4si1"]
-size = Vector2(81, 125.625)
+size = Vector2(81, 317.781)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gyqm"]
 shader = ExtResource("2_jtyfx")
@@ -1073,7 +1073,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2(0, -22.375)
+position = Vector2(0, -84.8906)
 shape = SubResource("RectangleShape2D_f4si1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -1087,7 +1087,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
-position = Vector2(0, 3)
+position = Vector2(0, -4.92969)
 scale = Vector2(2.5, 0.05)
 shape = SubResource("RectangleShape2D_f4si1")
 

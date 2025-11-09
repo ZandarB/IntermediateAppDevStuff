@@ -33,7 +33,7 @@ position = Vector2(1500, 158)
 texture = ExtResource("2_l4wr6")
 
 [node name="Player" parent="." instance=ExtResource("3_5rvg2")]
-position = Vector2(1893, -501)
+position = Vector2(1427, -1303)
 collision_layer = 2
 
 [node name="Pickups" type="Node" parent="."]
