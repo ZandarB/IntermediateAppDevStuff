@@ -6,10 +6,11 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] PlayerController player;
     [SerializeField] GameObject GameOverCanvas;
+    bool gameOver = false;
 
     void Update()
     {
-        if (player.isDead == true)
+        if (player.isDead == true && player.won == false)
         {
             GameOverCanvas.SetActive(true);
         }
@@ -20,3 +21,4 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
+

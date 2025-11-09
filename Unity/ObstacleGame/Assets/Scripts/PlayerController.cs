@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject healthTextObject;
     public TextMeshProUGUI healthText;
     public bool isDead = false;
+    public bool won;
     
     void Update()
     {
@@ -22,10 +24,14 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        float yValue = 0f;
-        float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        transform.Translate(xValue, yValue, zValue);
+        if (isDead != true)
+        {
+            float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+            float yValue = 0f;
+            float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+            transform.Translate(xValue, yValue, zValue);
+        }
+
     }
 
     public void TakeDamage(int damage)
@@ -41,5 +47,11 @@ public class PlayerController : MonoBehaviour
             healthText.text = $"Health: {health}";
         }
 
+    }
+
+    public void LockMovement()
+    {
+        won = true;
+        isDead = true;
     }
 }

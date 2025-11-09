@@ -18,9 +18,10 @@ public class ProjectileStraight : MonoBehaviour
             if (player != null)
             {
                 player.TakeDamage(10);
+                Destroy(gameObject);
             }
         }
-        else if (!collision.gameObject.CompareTag("Spinner") && !collision.gameObject.CompareTag("Ground") && !collision.gameObject.CompareTag("Trigger"))
+        else if (!collision.gameObject.CompareTag("Ground") && !collision.gameObject.CompareTag("Trigger"))
         {
             Destroy(gameObject);
         }   

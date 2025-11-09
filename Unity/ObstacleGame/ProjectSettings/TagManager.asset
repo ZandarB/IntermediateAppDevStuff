@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Spinner
   - Trigger
+  - Wall
   layers:
   - Default
   - TransparentFX
